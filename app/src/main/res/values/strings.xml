@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DoubanMovieDemo</string>
+    <string name="error_activity$restart_application">重新打开应用</string>
+    <string name="error_activity$more_info">更多详情</string>
+</resources>
