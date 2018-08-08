@@ -1,6 +1,8 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
-public class WeeklySubject {
+import java.io.Serializable;
+
+public class WeeklySubject implements Serializable {
     public int rank;
     public int delta;
 

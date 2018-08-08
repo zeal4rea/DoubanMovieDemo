@@ -1,6 +1,8 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable {
     public String id;
     public String created_at;
     public String subject_id;

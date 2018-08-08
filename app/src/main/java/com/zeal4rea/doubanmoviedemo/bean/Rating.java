@@ -1,6 +1,8 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
-public class Rating {
+import java.io.Serializable;
+
+public class Rating implements Serializable {
     public int min;
     public int max;
     public float average;

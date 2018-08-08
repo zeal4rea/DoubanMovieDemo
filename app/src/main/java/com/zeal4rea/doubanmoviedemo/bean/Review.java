@@ -1,6 +1,8 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
-public class Review {
+import java.io.Serializable;
+
+public class Review implements Serializable {
     public String id;
     public String title;
     public String alt;

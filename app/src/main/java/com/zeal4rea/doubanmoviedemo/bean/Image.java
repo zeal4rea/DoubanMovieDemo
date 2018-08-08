@@ -1,6 +1,8 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
-public class Image {
+import java.io.Serializable;
+
+public class Image implements Serializable {
     public String large;
     public String medium;
     public String small;

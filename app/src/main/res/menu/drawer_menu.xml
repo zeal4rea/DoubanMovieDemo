@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/drawer_menu$group1">
+        <item
+            android:id="@+id/drawer_menu$group1_item1"
+            android:icon="@mipmap/ic_launcher"
+            android:title="group1_item1"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/drawer_menu$group1_item2"
+            android:icon="@mipmap/ic_launcher"
+            android:title="group1_item2"
+            app:showAsAction="ifRoom" />
+    </group>
+
+    <group android:id="@+id/drawer_menu$group2">
+        <item
+            android:id="@+id/drawer_menu$group2_item1"
+            android:icon="@mipmap/ic_launcher"
+            android:title="group2_item1"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/drawer_menu$group2_item2"
+            android:icon="@mipmap/ic_launcher"
+            android:title="group2_item2"
+            app:showAsAction="ifRoom" />
+    </group>
+
+    <group android:id="@+id/drawer_menu$group3">
+        <item
+            android:id="@+id/drawer_menu$group3_item1"
+            android:icon="@mipmap/ic_launcher"
+            android:title="group3_item1"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/drawer_menu$group3_item2"
+            android:icon="@mipmap/ic_launcher"
+            android:title="group3_item2"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>

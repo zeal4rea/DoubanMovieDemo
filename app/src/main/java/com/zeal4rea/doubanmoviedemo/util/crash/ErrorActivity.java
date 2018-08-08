@@ -1,4 +1,4 @@
-package com.zeal4rea.doubanmoviedemo;
+package com.zeal4rea.doubanmoviedemo.util.crash;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.zeal4rea.doubanmoviedemo.R;
 
 public class ErrorActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.zeal4rea.doubanmoviedemo;
+package com.zeal4rea.doubanmoviedemo.util.crash;
 
 import android.app.Activity;
 import android.app.Application;
@@ -41,6 +41,7 @@ public class CustomOnCrash {
     }
 
     private static void startErrorActivity(Throwable throwable) {
+        throwable.printStackTrace();
         Intent startErrorIntent = new Intent(mApplication, ErrorActivity.class);
         startErrorIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         StringWriter sw = new StringWriter();

@@ -1,6 +1,8 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
-public class Photo {
+import java.io.Serializable;
+
+public class Photo implements Serializable {
     public String id;
     public String subject_id;
     public String alt;

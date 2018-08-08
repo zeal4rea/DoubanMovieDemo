@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ErrorActivity"
+            android:name=".util.crash.ErrorActivity"
             android:process=":error_activity" />
     </application>
 

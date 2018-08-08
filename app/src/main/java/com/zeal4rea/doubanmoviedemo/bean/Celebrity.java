@@ -1,8 +1,9 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Celebrity {
+public class Celebrity implements Serializable {
     public String id;
     public String name;
     public String name_en;

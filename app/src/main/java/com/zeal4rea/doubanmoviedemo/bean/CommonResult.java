@@ -2,9 +2,10 @@ package com.zeal4rea.doubanmoviedemo.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class CommonResult<A, B> {
+public class CommonResult<A, B> implements Serializable {
     public int start;
     public int count;
     public int total;
@@ -14,7 +15,7 @@ public class CommonResult<A, B> {
     public String title;
     @SerializedName(value = "subject", alternate = {"celebrity"})
     public A belong;
-    @SerializedName(value = "photos", alternate = {"reviews", "comments", "works"})
+    @SerializedName(value = "subjects", alternate = {"photos", "reviews", "comments", "works"})
     public B[] results;
 
     @Override

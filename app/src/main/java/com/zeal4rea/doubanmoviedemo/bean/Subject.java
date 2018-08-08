@@ -1,8 +1,9 @@
 package com.zeal4rea.doubanmoviedemo.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Subject {
+public class Subject implements Serializable {
     public String id;
     public String title;
     public String original_title;
