@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_review_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="test title"/>
+
+    <ImageView
+        android:id="@+id/subjectdetail_content$image_view_review_reviewer_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_review_title"/>
+
+    <LinearLayout
+        android:id="@+id/subjectdetail_content$linear_layout_review_stars"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="6dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$image_view_review_reviewer_icon"
+        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$image_view_review_reviewer_icon"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_review_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$image_view_review_reviewer_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="ccccccccccccccccccccccccccccccccccccccooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnnntttttttttttttttttttttttttttttttttttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeennnnnnnnnnnnnnnnnnnnnnnnnnnttttttttttttttttttttttttttttt"/>
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_review_useful"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_review_content"
+        android:text="123"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$text_view_review_useful"
+        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$text_view_review_useful"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="有用"/>
+
+</android.support.constraint.ConstraintLayout>

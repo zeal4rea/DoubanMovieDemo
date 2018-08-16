@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_review_label"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:text="@string/subjectdetail$review"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/subjectdetail_content$recycler_view_reviews"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_review_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_no_review"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:text="@string/subjectdetail$no_review"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$recycler_view_reviews"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

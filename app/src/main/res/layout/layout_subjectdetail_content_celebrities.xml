@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp">
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_celebrities_label"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/subjectdetail$celebrity"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/subjectdetail_content$recycler_view_celebrities"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_celebrities_label"/>
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_no_celebrity"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:text="@string/subjectdetail$no_celebrity"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$recycler_view_celebrities"/>
+
+</android.support.constraint.ConstraintLayout>

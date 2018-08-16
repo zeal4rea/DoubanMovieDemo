@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/subjectdetail_content$image_view_commenter_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_commenter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="6dp"
+        android:text="测试"
+        android:textColor="#000"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$image_view_commenter_icon"
+        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$image_view_commenter_icon" />
+
+    <LinearLayout
+        android:id="@+id/subjectdetail_content$linear_layout_comment_stars"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="6dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$text_view_commenter_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$text_view_commenter_name" />
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_comment_time"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:text="2018-01-01"
+        app:layout_constraintLeft_toLeftOf="@id/subjectdetail_content$text_view_commenter_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_commenter_name" />
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_comment_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeettttttttttttttttttttttttttttttt"
+        android:textColor="#494949"
+        app:layout_constraintLeft_toLeftOf="@id/subjectdetail_content$text_view_comment_time"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_comment_time"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/subjectdetail_content$text_view_comment_votes"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:drawableLeft="@mipmap/like"
+        android:textColor="#CCCCCC"
+        android:text="1234"
+        app:layout_constraintLeft_toLeftOf="@id/subjectdetail_content$text_view_comment_content"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_comment_content"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>
