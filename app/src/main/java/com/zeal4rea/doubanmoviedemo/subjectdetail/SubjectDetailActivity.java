@@ -1,5 +1,6 @@
 package com.zeal4rea.doubanmoviedemo.subjectdetail;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BaseTransientBottomBar;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.zeal4rea.doubanmoviedemo.R;
+import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.bean.CommonResult;
 import com.zeal4rea.doubanmoviedemo.bean.api.Celebrity;
 import com.zeal4rea.doubanmoviedemo.bean.api.Subject;
@@ -30,6 +32,7 @@ import com.zeal4rea.doubanmoviedemo.bean.jsoup.PhotoTemp;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Review4J;
 import com.zeal4rea.doubanmoviedemo.data.remote.RemoteDataSource;
 import com.zeal4rea.doubanmoviedemo.data.remote.jsoup.JsoupApi;
+import com.zeal4rea.doubanmoviedemo.gallerytabs.GalleryTabsActivity;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 import com.zeal4rea.doubanmoviedemo.util.view.HeaderAndFooterAdapterWrapper;
 
@@ -71,6 +74,7 @@ public class SubjectDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjectdetail);
+        Utils.setCustomDensity(this);
 
         mToolbar = findViewById(R.id.subjectdetail$toolbar);
         mCover = findViewById(R.id.subjectdetail$image_view_cover);
@@ -153,7 +157,7 @@ public class SubjectDetailActivity extends AppCompatActivity {
                 });
 
         RemoteDataSource.getInstance()
-                .htmlGetPhotos(subjectId, 0)
+                .htmlGetPhotos(subjectId, 0, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CommonResult<Void, PhotoTemp>>() {
@@ -178,6 +182,15 @@ public class SubjectDetailActivity extends AppCompatActivity {
                         PhotosAdapter innerAdapter = new PhotosAdapter(SubjectDetailActivity.this, photos);
                         HeaderAndFooterAdapterWrapper adapter = new HeaderAndFooterAdapterWrapper(innerAdapter);
                         View morePhotosFooter = LayoutInflater.from(SubjectDetailActivity.this).inflate(R.layout.layout_subjectdetail_content_photos_more, mRecyclerViewPhotos, false);
+                        morePhotosFooter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent i = new Intent(SubjectDetailActivity.this, GalleryTabsActivity.class);
+                                i.putExtra("subjectId", subjectId);
+                                i.putExtra("subjectTitle", mSubject.title);
+                                SubjectDetailActivity.this.startActivity(i);
+                            }
+                        });
                         adapter.addFooterView(morePhotosFooter);
                         mRecyclerViewPhotos.setAdapter(adapter);
                         mRecyclerViewPhotos.setNestedScrollingEnabled(false);
@@ -276,7 +289,6 @@ public class SubjectDetailActivity extends AppCompatActivity {
     private void setUpActionBar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         if (!loadFail) {
             getSupportActionBar().setTitle(mSubject.title);
         }

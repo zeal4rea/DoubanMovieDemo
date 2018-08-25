@@ -30,11 +30,11 @@ public class MainTabsFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        MainTabsViewPagerAdapter mPagerAdapter = new MainTabsViewPagerAdapter(getActivity().getSupportFragmentManager());
+        CommonTabsPagerAdapter mPagerAdapter = new CommonTabsPagerAdapter(getActivity().getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        SparseArray<String> list = Utils.getSparseArraySplitBy(getResources().getStringArray(R.array.movie_list), "=");
+        SparseArray<String> list = Utils.getSparseArraySplitBy(getResources().getStringArray(R.array.movie_list_order), "=");
         for (int i = 0; i < list.size(); i++) {
             if (TextUtils.isEmpty(list.get(i)))
                 continue;

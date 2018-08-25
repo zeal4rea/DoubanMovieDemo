@@ -33,8 +33,8 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type) {
-        return remoteDataSource.apiGetSubjects(type);
+    public Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type, int start, int count) {
+        return remoteDataSource.apiGetSubjects(type, start, count);
     }
 
     @Override
@@ -58,8 +58,8 @@ public class DataRepository implements DataSource {
     }
 
     @Override
-    public Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start) {
-        return remoteDataSource.htmlGetPhotos(subjectId, start);
+    public Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start, int type) {
+        return remoteDataSource.htmlGetPhotos(subjectId, start, type);
     }
 
     @Override

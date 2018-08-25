@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="movie_list">
+    <string-array name="movie_list_order">
         <item>0=正在热映</item>
         <item>1=即将上映</item>
         <item>2=Top250</item>
         <!--<item>3=口碑榜</item>
         <item>4=北美票房榜</item>
         <item>5=新片榜</item>-->
+    </string-array>
+    <string-array name="photo_list_order">
+        <item>0=剧照</item>
+        <item>1=海报</item>
+        <item>2=壁纸</item>
     </string-array>
 </resources>

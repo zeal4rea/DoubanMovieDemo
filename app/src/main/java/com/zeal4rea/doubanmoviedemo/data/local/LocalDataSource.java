@@ -29,7 +29,7 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type) {
+    public Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type, int start, int count) {
         return null;
     }
 
@@ -54,7 +54,7 @@ public class LocalDataSource implements DataSource {
     }
 
     @Override
-    public Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start) {
+    public Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start, int type) {
         return null;
     }
 

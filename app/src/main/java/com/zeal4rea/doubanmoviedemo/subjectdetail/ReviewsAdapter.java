@@ -11,8 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zeal4rea.doubanmoviedemo.R;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Review4J;
+import com.zeal4rea.doubanmoviedemo.util.view.GlideCircleTransform;
 import com.zeal4rea.doubanmoviedemo.util.view.RatingAndStars;
 
 import java.util.List;
@@ -41,7 +43,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
             holder.useful.setText(review.useful);
             holder.content.setText(review.content);
             RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(Integer.valueOf(review.rating), RatingAndStars.TYPE_100));
-            Glide.with(context).load(review.user.iconUrl).into(holder.icon);
+            Glide.with(context).load(review.user.iconUrl).apply(new RequestOptions().transform(new GlideCircleTransform())).into(holder.icon);
         }
     }
 

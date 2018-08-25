@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">DoubanMovieDemo</string>
+    <string name="image">图片</string>
     <string name="menu$search">搜索</string>
-    <string name="error_activity$restart_application">重新打开应用</string>
-    <string name="error_activity$more_info">更多详情</string>
+    <string name="gallery$more">显示更多</string>
+    <string name="gallery$no_more">已经到底了</string>
+    <string name="error$click_to_reload">加载发生错误，点击重试</string>
+    <string name="empty$nothing">什么都没有喔</string>
     <string name="drawer_desc$open">侧边栏打开</string>
     <string name="drawer_desc$close">侧边栏关闭</string>
     <string name="movie_item$cover">这是封面</string>

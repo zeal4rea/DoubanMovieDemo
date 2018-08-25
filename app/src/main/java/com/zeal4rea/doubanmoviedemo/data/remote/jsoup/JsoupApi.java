@@ -17,6 +17,7 @@ import retrofit2.http.Query;
 public interface JsoupApi {
     String SORT_NEW_SCORE = "new_score";
     String SORT_TIME = "time";
+    String[] PHOTO_TYPE = {"S", "R", "W"};
 
     @GET("{url}")
     Observable<String> getHtml(@Path("url") String url);
@@ -24,8 +25,8 @@ public interface JsoupApi {
     @GET("/movie/subject/{subjectId}/")
     Observable<Subject4J> getSubjectDetail(@Path("subjectId") String subjectId);
 
-    @GET("/j/fetch_photo/?type=S")
-    Observable<CommonResult<Void, PhotoTemp>> getPhotos(@Query("mid") String subjectId, @Query("start") int start);
+    @GET("/j/fetch_photo/")
+    Observable<CommonResult<Void, PhotoTemp>> getPhotos(@Query("mid") String subjectId, @Query("start") int start, @Query("type") String type);
 
     @GET("/movie/subject/{subjectId}/comments")
     Observable<List<Comment4J>> getComments(@Path("subjectId") String subjectId, @Query("start") int start, @Query("sort") String sort);

@@ -21,10 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".util.crash.ErrorActivity"
-            android:process=":error_activity" />
-        <activity
             android:name=".subjectdetail.SubjectDetailActivity"
+            android:theme="@style/AppTheme.TransparentBackground" />
+        <activity
+            android:name=".gallerytabs.GalleryTabsActivity"
+            android:theme="@style/AppTheme.TransparentBackground" />
+        <activity
+            android:name=".image.ImageActivity"
             android:theme="@style/AppTheme.TransparentBackground" />
     </application>
 

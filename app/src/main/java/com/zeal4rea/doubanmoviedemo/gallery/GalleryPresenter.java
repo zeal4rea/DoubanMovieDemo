@@ -1,14 +1,13 @@
-package com.zeal4rea.doubanmoviedemo.subjects;
-
-import android.support.annotation.NonNull;
+package com.zeal4rea.doubanmoviedemo.gallery;
 
 import com.zeal4rea.doubanmoviedemo.bean.CommonResult;
-import com.zeal4rea.doubanmoviedemo.bean.api.Subject;
+import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
+import com.zeal4rea.doubanmoviedemo.bean.jsoup.PhotoTemp;
 import com.zeal4rea.doubanmoviedemo.data.DataRepository;
-import com.zeal4rea.doubanmoviedemo.data.SubjectsType;
+import com.zeal4rea.doubanmoviedemo.util.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -16,19 +15,21 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class SubjectsPresenter implements SubjectsContract.Presenter {
-    private final CompositeDisposable mCompositeDisposable;
+public class GalleryPresenter implements GalleryContract.Presenter {
     private DataRepository mDataRepository;
-    private SubjectsContract.View mSubjectsView;
-    private SubjectsType mType;
+    private GalleryContract.View mGalleryView;
+    private String mSubjectId;
+    private int mType;
     private int mStart = 0;
     private int mTotal = -1;
+    private CompositeDisposable mCompositeDisposable;
 
-    public SubjectsPresenter(@NonNull DataRepository dataRepository, @NonNull SubjectsContract.View subjectsView, SubjectsType type) {
+    public GalleryPresenter(DataRepository dataRepository, GalleryContract.View view, String subjectId, int type) {
         mDataRepository = dataRepository;
-        mSubjectsView = subjectsView;
+        mGalleryView = view;
+        mSubjectId = subjectId;
         mType = type;
-        mSubjectsView.setPresenter(this);
+        mGalleryView.setPresenter(this);
         mCompositeDisposable = new CompositeDisposable();
     }
 
@@ -38,32 +39,38 @@ public class SubjectsPresenter implements SubjectsContract.Presenter {
             mStart = 0;
         }
         if (mTotal != -1 && mStart >= mTotal) {
-            mSubjectsView.load(null, more, false);
+            mGalleryView.load(null, more, false);
             return;
         }
-        mSubjectsView.loading(true);
+        mGalleryView.loading(true);
         mCompositeDisposable.clear();
         mDataRepository
-                .apiGetSubjects(mType, mStart, 20)
+                .htmlGetPhotos(mSubjectId, mStart, mType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CommonResult<Void, Subject>>() {
+                .subscribe(new Observer<CommonResult<Void, PhotoTemp>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mCompositeDisposable.add(d);
                     }
 
                     @Override
-                    public void onNext(CommonResult<Void, Subject> result) {
+                    public void onNext(CommonResult<Void, PhotoTemp> result) {
                         if (result != null && result.results != null && result.results.length > 0) {
-                            mStart += result.results.length;
+                            List<Photo4J> photos = new ArrayList<>();
+                            for (PhotoTemp p : result.results) {
+                                String[] arr = Utils.regexMatch("\\/(\\d+)\\?", p.url);
+                                photos.add(Photo4J.create(arr[1]));
+                            }
+                            Utils.logWithDebugingTag("photos:" + photos.toString());
+                            mStart += photos.size();
                             mTotal = result.total;
-                            mSubjectsView.load(new ArrayList<>(Arrays.asList(result.results)), more, mStart < mTotal);
+                            mGalleryView.load(photos, more, mStart < mTotal);
                         } else {
                             if (more) {
-                                mSubjectsView.load(null, true, false);
+                                mGalleryView.load(null, true, false);
                             } else {
-                                mSubjectsView.displayEmptyPage();
+                                mGalleryView.displayEmptyPage();
                             }
                         }
                     }
@@ -71,13 +78,13 @@ public class SubjectsPresenter implements SubjectsContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        mSubjectsView.displayErrorPage();
-                        mSubjectsView.loading(false);
+                        mGalleryView.displayErrorPage();
+                        mGalleryView.loading(false);
                     }
 
                     @Override
                     public void onComplete() {
-                        mSubjectsView.loading(false);
+                        mGalleryView.loading(false);
                     }
                 });
     }

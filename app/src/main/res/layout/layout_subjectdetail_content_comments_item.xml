@@ -63,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginTop="6dp"
-        android:drawableLeft="@mipmap/like"
+        android:drawableLeft="@drawable/like"
         android:textColor="#CCCCCC"
         android:text="1234"
         app:layout_constraintLeft_toLeftOf="@id/subjectdetail_content$text_view_comment_content"

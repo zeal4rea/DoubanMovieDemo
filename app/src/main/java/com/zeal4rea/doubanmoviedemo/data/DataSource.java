@@ -14,13 +14,13 @@ import java.util.Map;
 import io.reactivex.Observable;
 
 public interface DataSource {
-    Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type);
+    Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type, int start, int count);
     Observable<CommonResult<Void, Subject>> apiQuerySubjects(Map<String, String> queryMap);
     Observable<Subject> apiGetSubjectDetail(String subjectId);
     Observable<Celebrity> apiGetCelebrity(String celebrityId);
 
     Observable<Subject4J> htmlGetSubjectDetail(String subjectId);
-    Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start);
+    Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start, int type);
     Observable<List<Comment4J>> htmlGetComments(String subjectId, int start, String sort);
     Observable<List<Review4J>> htmlGetReviews(String subjectId, int start, int count);
 }

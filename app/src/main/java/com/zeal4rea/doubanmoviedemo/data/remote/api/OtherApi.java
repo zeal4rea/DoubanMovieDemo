@@ -18,7 +18,7 @@ public interface OtherApi {
     @GET("/v2/movie/new_movies")
     Observable<CommonResult<Void, Subject>> getNewMovies();
     @GET("/v2/movie/in_theaters")
-    Observable<CommonResult<Void, Subject>> getInTheaters(@Nullable @Query("city") String city);
+    Observable<CommonResult<Void, Subject>> getInTheaters(@Nullable @Query("city") String city, @Query("start") int start, @Query("count") int count);
     @GET("/v2/movie/coming_soon")
     Observable<CommonResult<Void, Subject>> getComingSoon(@Nullable @Query("start") int start, @Nullable @Query("count") int count);
 }

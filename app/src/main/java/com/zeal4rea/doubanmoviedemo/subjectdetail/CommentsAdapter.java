@@ -11,8 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.zeal4rea.doubanmoviedemo.R;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Comment4J;
+import com.zeal4rea.doubanmoviedemo.util.Utils;
+import com.zeal4rea.doubanmoviedemo.util.view.GlideCircleTransform;
 import com.zeal4rea.doubanmoviedemo.util.view.RatingAndStars;
 
 import java.util.List;
@@ -41,7 +44,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
             holder.time.setText(comment.date);
             holder.votes.setText(comment.votes);
             holder.content.setText(comment.content);
-            Glide.with(context).load(comment.user.iconUrl).into(holder.icon);
+            Glide.with(context).load(comment.user.iconUrl).apply(new RequestOptions().transform(new GlideCircleTransform())).into(holder.icon);
+            if (Utils.isTextEmpty(comment.rating)) {
+                comment.rating = "0";
+            }
             RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(Integer.valueOf(comment.rating), RatingAndStars.TYPE_50));
         }
     }

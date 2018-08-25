@@ -72,12 +72,12 @@ public class RemoteDataSource implements DataSource {
                 Request request = chain.request();
                 //Request request = original.newBuilder().header("User-Agent", BaseContants.USER_AGENT).build();
                 if (!NetworkUtil.isNetworkAvaliable()) {
-                    //无网络强制从缓存取
+                    //无网络强制从缓存取，过期时间365天
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
                             .build();
                     Response response = chain.proceed(request);
-                    int maxStale = 7 * 24 * 60 * 60;
+                    int maxStale = 365 * 24 * 60 * 60;
                     return response.newBuilder()
                             .removeHeader("pragma")
                             .header("cache-control", "public, only-if-cached, max-stale=" + maxStale)
@@ -122,13 +122,13 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type) {
+    public Observable<CommonResult<Void, Subject>> apiGetSubjects(SubjectsType type, int start, int count) {
         String baseUrl = BaseContants.BASE_URL_API;
         switch (type) {
             case IN_THEATERS:
-                return ((OtherApi) getApi(baseUrl, OtherApi.class)).getInTheaters(null);
+                return ((OtherApi) getApi(baseUrl, OtherApi.class)).getInTheaters(null, start, count);
             case COMING_SOON:
-                return ((OtherApi) getApi(baseUrl, OtherApi.class)).getComingSoon(0, 20);
+                return ((OtherApi) getApi(baseUrl, OtherApi.class)).getComingSoon(start, count);
             case TOP250:
                 return ((OtherApi) getApi(baseUrl, OtherApi.class)).getTop250();
             /*case US_BOX:
@@ -160,8 +160,8 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start) {
-        return ((JsoupApi) getApi(BaseContants.BASE_URL_MOBILE, JsoupApi.class)).getPhotos(subjectId, start);
+    public Observable<CommonResult<Void, PhotoTemp>> htmlGetPhotos(String subjectId, int start, int type) {
+        return ((JsoupApi) getApi(BaseContants.BASE_URL_MOBILE, JsoupApi.class)).getPhotos(subjectId, start, JsoupApi.PHOTO_TYPE[type]);
     }
 
     @Override
