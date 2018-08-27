@@ -15,7 +15,7 @@ public class CommonResult<A, B> implements Serializable {
     public String title;
     @SerializedName(value = "subject", alternate = {"celebrity"})
     public A belong;
-    @SerializedName(value = "subjects", alternate = {"photos", "reviews", "comments", "works"})
+    @SerializedName(value = "subjects", alternate = {"photos", "reviews", "comments", "works", "interests"})
     public B[] results;
 
     @Override

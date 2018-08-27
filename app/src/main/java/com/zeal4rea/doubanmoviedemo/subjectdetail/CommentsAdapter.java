@@ -13,8 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.bean.jsoup.Comment4J;
-import com.zeal4rea.doubanmoviedemo.util.Utils;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.Comment;
 import com.zeal4rea.doubanmoviedemo.util.view.GlideCircleTransform;
 import com.zeal4rea.doubanmoviedemo.util.view.RatingAndStars;
 
@@ -22,9 +21,9 @@ import java.util.List;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
     private final Context context;
-    private final List<Comment4J> comments;
+    private List<Comment> comments;
 
-    public CommentsAdapter(Context context, List<Comment4J> comments) {
+    public CommentsAdapter(Context context, List<Comment> comments) {
         this.context = context;
         this.comments = comments;
     }
@@ -36,25 +35,39 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (position < 5) {
-            Comment4J comment = comments.get(position);
-            holder.name.setText(comment.user.name);
-            holder.time.setText(comment.date);
-            holder.votes.setText(comment.votes);
-            holder.content.setText(comment.content);
-            Glide.with(context).load(comment.user.iconUrl).apply(new RequestOptions().transform(new GlideCircleTransform())).into(holder.icon);
-            if (Utils.isTextEmpty(comment.rating)) {
-                comment.rating = "0";
-            }
-            RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(Integer.valueOf(comment.rating), RatingAndStars.TYPE_50));
+    public void setData(List<Comment> comments, boolean add) {
+        if (add) {
+            int positionStart = getItemCount();
+            this.comments.addAll(comments);
+            notifyItemRangeInserted(positionStart, comments.size());
+        } else {
+            this.comments = comments;
+            notifyDataSetChanged();
+        }
+    }
+
+    public void clear() {
+        int itemCount = getItemCount();
+        if (itemCount > 0) {
+            comments.clear();
+            notifyItemRangeRemoved(0, itemCount);
         }
     }
 
     @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Comment comment = comments.get(position);
+        holder.name.setText(comment.user.name);
+        holder.time.setText(comment.create_time);
+        holder.votes.setText(comment.vote_count);
+        holder.content.setText(comment.comment);
+        Glide.with(context).load(comment.user.avatar).apply(new RequestOptions().transform(new GlideCircleTransform())).into(holder.icon);
+        RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(comment.rating.value, (int) comment.rating.max));
+    }
+
+    @Override
     public int getItemCount() {
-        return comments.size() > 5 ? 5 : comments.size();
+        return comments == null ? 0 : comments.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

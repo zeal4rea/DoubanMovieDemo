@@ -7,6 +7,10 @@ import com.zeal4rea.doubanmoviedemo.bean.jsoup.Comment4J;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.PhotoTemp;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Review4J;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Subject4J;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.CelebrityWorkWrapper;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.Comment;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.Photo;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.SubjectCelebrities;
 import com.zeal4rea.doubanmoviedemo.data.DataSource;
 import com.zeal4rea.doubanmoviedemo.data.SubjectsType;
 
@@ -65,6 +69,36 @@ public class LocalDataSource implements DataSource {
 
     @Override
     public Observable<List<Review4J>> htmlGetReviews(String subjectId, int start, int count) {
+        return null;
+    }
+
+    @Override
+    public Observable<com.zeal4rea.doubanmoviedemo.bean.rexxar.Subject> rexxarGetSubjectInfo(String id) {
+        return null;
+    }
+
+    @Override
+    public Observable<SubjectCelebrities> rexxarGetSubjectCelebrities(String id) {
+        return null;
+    }
+
+    @Override
+    public Observable<CommonResult<Void, Comment>> rexxarGetSubjectComments(String id, String sort, int start, int count) {
+        return null;
+    }
+
+    @Override
+    public Observable<com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity> rexxarGetCelebrityDetail(String id) {
+        return null;
+    }
+
+    @Override
+    public Observable<CommonResult<Void, CelebrityWorkWrapper>> rexxarGetCelebrityWorks(String id, String sort, int start, int count) {
+        return null;
+    }
+
+    @Override
+    public Observable<CommonResult<Void, Photo>> rexxarGetCelebrityPhotos(String id, int start, int count) {
         return null;
     }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
     private final Context context;
-    private final List<Review4J> reviews;
+    private List<Review4J> reviews;
 
     public ReviewsAdapter(Context context, List<Review4J> reviews) {
         this.context = context;
@@ -37,19 +37,36 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (position < 5) {
-            Review4J review = reviews.get(position);
-            holder.title.setText(review.title);
-            holder.useful.setText(review.useful);
-            holder.content.setText(review.content);
-            RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(Integer.valueOf(review.rating), RatingAndStars.TYPE_100));
-            Glide.with(context).load(review.user.iconUrl).apply(new RequestOptions().transform(new GlideCircleTransform())).into(holder.icon);
+        Review4J review = reviews.get(position);
+        holder.title.setText(review.title);
+        holder.useful.setText(review.useful);
+        holder.content.setText(review.content);
+        RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(Integer.valueOf(review.rating), RatingAndStars.TYPE_100));
+        Glide.with(context).load(review.user.iconUrl).apply(new RequestOptions().transform(new GlideCircleTransform())).into(holder.icon);
+    }
+
+    public void setData(List<Review4J> reviews, boolean add) {
+        if (add) {
+            int positionStart = getItemCount();
+            this.reviews.addAll(reviews);
+            notifyItemRangeInserted(positionStart, reviews.size());
+        } else {
+            this.reviews = reviews;
+            notifyDataSetChanged();
+        }
+    }
+
+    public void clear() {
+        int itemCount = getItemCount();
+        if (itemCount > 0) {
+            reviews.clear();
+            notifyItemRangeRemoved(0, itemCount);
         }
     }
 
     @Override
     public int getItemCount() {
-        return reviews.size() > 5 ? 5 : reviews.size();
+        return reviews == null ? 0 : reviews.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

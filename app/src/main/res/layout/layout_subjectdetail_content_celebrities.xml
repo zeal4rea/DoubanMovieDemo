@@ -9,27 +9,32 @@
         android:id="@+id/subjectdetail_content$text_view_celebrities_label"
         android:layout_width="0dp"
         android:layout_height="20dp"
+        android:text="@string/celebrity"
+        android:textColor="#aaa"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="@string/subjectdetail$celebrity"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/subjectdetail_content$recycler_view_celebrities"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_marginTop="6dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_celebrities_label"/>
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_celebrities_label" />
 
     <TextView
         android:id="@+id/subjectdetail_content$text_view_no_celebrity"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:text="@string/subjectdetail$no_celebrity"
+        android:layout_marginTop="6dp"
+        android:textColor="#494949"
+        android:text="@string/no_celebrity"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$recycler_view_celebrities"/>
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_celebrities_label" />
 
 </android.support.constraint.ConstraintLayout>

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.bean.api.Celebrity;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class CelebritiesAdapter extends RecyclerView.Adapter<CelebritiesAdapter.
         Celebrity celebrity = celebrities.get(position);
         holder.name.setText(celebrity.name);
         holder.role.setText(celebrity.role);
-        Glide.with(context).load(celebrity.avatars.small).into(holder.avatar);
+        Glide.with(context).load(celebrity.cover_url).into(holder.avatar);
     }
 
     @Override
@@ -48,6 +48,7 @@ public class CelebritiesAdapter extends RecyclerView.Adapter<CelebritiesAdapter.
         ImageView avatar;
         TextView name;
         TextView role;
+
         public ViewHolder(View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.subjectdetail_content$image_view_celebrity_avatar);

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.zeal4rea.doubanmoviedemo.R;
+import com.zeal4rea.doubanmoviedemo.util.Utils;
 import com.zeal4rea.doubanmoviedemo.util.image.ImageUtil;
 
 public class RatingAndStars {
@@ -48,13 +49,13 @@ public class RatingAndStars {
             int low = rating100 / 20;
             int high = (int) (rating100 / 20 + 0.5);
             for (int i = 0; i < low; i++) {
-                addStar(context, stars, 0);
+                addStar(context, stars, 0, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
             if (low != high) {
-                addStar(context, stars, 1);
+                addStar(context, stars, 1, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
             for (int i = 0; i < 5 - high; i++) {
-                addStar(context, stars, 2);
+                addStar(context, stars, 2, ViewGroup.LayoutParams.WRAP_CONTENT);
             }
             return true;
         } else {
@@ -62,7 +63,27 @@ public class RatingAndStars {
         }
     }
 
-    private static void addStar(Context context, ViewGroup stars, int type) {
+    public static boolean fillStars(Context context, ViewGroup stars, int rating100, int sizeDp) {
+        stars.removeAllViews();
+        if (rating100 > 0) {
+            int low = rating100 / 20;
+            int high = (int) (rating100 / 20 + 0.5);
+            for (int i = 0; i < low; i++) {
+                addStar(context, stars, 0, sizeDp);
+            }
+            if (low != high) {
+                addStar(context, stars, 1, sizeDp);
+            }
+            for (int i = 0; i < 5 - high; i++) {
+                addStar(context, stars, 2, sizeDp);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static void addStar(Context context, ViewGroup stars, int type, int sizeDp) {
         int base64 = R.string.star_empty_base64;
         switch (type) {
             case 0:
@@ -76,7 +97,12 @@ public class RatingAndStars {
                 break;
         }
         ImageView imageView = new ImageView(context);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp;
+        if (sizeDp > 0) {
+            lp = new LinearLayout.LayoutParams(Utils.dp2px(sizeDp), Utils.dp2px(sizeDp));
+        } else {
+            lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
         imageView.setLayoutParams(lp);
         imageView.setImageBitmap(ImageUtil.getBase64Bitmap(context.getString(base64)));
         stars.addView(imageView);

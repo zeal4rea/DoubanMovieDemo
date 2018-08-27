@@ -12,12 +12,17 @@ import com.zeal4rea.doubanmoviedemo.bean.jsoup.Comment4J;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.PhotoTemp;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Review4J;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Subject4J;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.SubjectCelebrities;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.CelebrityWorkWrapper;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.Comment;
+import com.zeal4rea.doubanmoviedemo.bean.rexxar.Photo;
 import com.zeal4rea.doubanmoviedemo.data.DataSource;
 import com.zeal4rea.doubanmoviedemo.data.SubjectsType;
 import com.zeal4rea.doubanmoviedemo.data.remote.api.CelebrityApi;
 import com.zeal4rea.doubanmoviedemo.data.remote.api.OtherApi;
 import com.zeal4rea.doubanmoviedemo.data.remote.api.SubjectApi;
 import com.zeal4rea.doubanmoviedemo.data.remote.jsoup.JsoupApi;
+import com.zeal4rea.doubanmoviedemo.data.remote.rexxar.RexxarApi;
 import com.zeal4rea.doubanmoviedemo.util.network.NetworkUtil;
 
 import java.io.File;
@@ -140,11 +145,6 @@ public class RemoteDataSource implements DataSource {
     }
 
     @Override
-    public Observable<CommonResult<Void, Subject>> apiQuerySubjects(Map<String, String> queryMap) {
-        return null;
-    }
-
-    @Override
     public Observable<Subject> apiGetSubjectDetail(String subjectId) {
         return ((SubjectApi) getApi(BaseContants.BASE_URL_API, SubjectApi.class)).getSubjectDetail(subjectId);
     }
@@ -172,6 +172,47 @@ public class RemoteDataSource implements DataSource {
     @Override
     public Observable<List<Review4J>> htmlGetReviews(String subjectId, int start, int count) {
         return ((JsoupApi) getApi(BaseContants.BASE_URL_MOBILE, JsoupApi.class)).getReviews(subjectId, start, count);
+    }
+
+    @Override
+    public Observable<CommonResult<Void, Subject>> apiQuerySubjects(Map<String, String> queryMap) {
+        return null;
+    }
+
+    @Override
+    public Observable<com.zeal4rea.doubanmoviedemo.bean.rexxar.Subject> rexxarGetSubjectInfo(String id) {
+        String referer = String.format(RexxarApi.refererSubject, id);
+        return ((RexxarApi) getApi(BaseContants.BASE_URL_MOBILE, RexxarApi.class)).getSubjectInfo(referer, id);
+    }
+
+    @Override
+    public Observable<SubjectCelebrities> rexxarGetSubjectCelebrities(String id) {
+        String referer = String.format(RexxarApi.refererSubject, id);
+        return ((RexxarApi) getApi(BaseContants.BASE_URL_MOBILE, RexxarApi.class)).getSubjectCelebrities(referer, id);
+    }
+
+    @Override
+    public Observable<CommonResult<Void, Comment>> rexxarGetSubjectComments(String id, String sort, int start, int count) {
+        String referer = String.format(RexxarApi.refererSubjectComments, id);
+        return ((RexxarApi) getApi(BaseContants.BASE_URL_MOBILE, RexxarApi.class)).getSubjectComments(referer, id, sort, start, count);
+    }
+
+    @Override
+    public Observable<com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity> rexxarGetCelebrityDetail(String id) {
+        String referer = String.format(RexxarApi.refererCelebrity, id);
+        return ((RexxarApi) getApi(BaseContants.BASE_URL_MOBILE, RexxarApi.class)).getCelebrityDetail(referer, id);
+    }
+
+    @Override
+    public Observable<CommonResult<Void, CelebrityWorkWrapper>> rexxarGetCelebrityWorks(String id, String sort, int start, int count) {
+        String referer = String.format(RexxarApi.refererCelebrity, id);
+        return ((RexxarApi) getApi(BaseContants.BASE_URL_MOBILE, RexxarApi.class)).getCelebrityWorks(referer, id, sort, start, count);
+    }
+
+    @Override
+    public Observable<CommonResult<Void, Photo>> rexxarGetCelebrityPhotos(String id, int start, int count) {
+        String referer = String.format(RexxarApi.refererCelebrityAllPhotos, id);
+        return ((RexxarApi) getApi(BaseContants.BASE_URL_MOBILE, RexxarApi.class)).getCelebrityPhoto(referer, id, start, count);
     }
 
     public Observable<String> getHtml(String baseUrl) {

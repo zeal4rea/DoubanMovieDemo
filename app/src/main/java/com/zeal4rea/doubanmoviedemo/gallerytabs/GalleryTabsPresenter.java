@@ -9,7 +9,7 @@ import com.zeal4rea.doubanmoviedemo.util.Utils;
 public class GalleryTabsPresenter implements GalleryTabsContract.Presenter {
     private GalleryTabsContract.View mTabsView;
 
-    public GalleryTabsPresenter(GalleryTabsContract.View tabsView) {
+    GalleryTabsPresenter(GalleryTabsContract.View tabsView) {
         mTabsView = tabsView;
         mTabsView.setPresenter(this);
     }

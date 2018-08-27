@@ -15,10 +15,10 @@
         android:descendantFocusability="blocksDescendants"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name" />
+        <include
+            android:id="@+id/subjectdetail_content$layout_basic_info"
+            layout="@layout/layout_subjectdetail_content_basic_info"
+            android:visibility="gone"/>
 
         <include
             android:id="@+id/subjectdetail_content$layout_celebrities"
@@ -39,6 +39,11 @@
             android:id="@+id/subjectdetail_content$layout_reviews"
             layout="@layout/layout_subjectdetail_content_reviews"
             android:visibility="gone" />
+
+        <include
+            android:id="@+id/subjectdetail_content$layout_error"
+            layout="@layout/layout_error"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

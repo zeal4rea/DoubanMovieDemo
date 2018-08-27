@@ -16,6 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.zeal4rea.doubanmoviedemo.R;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
+import com.zeal4rea.doubanmoviedemo.util.Utils;
 
 import java.util.List;
 
@@ -75,6 +76,7 @@ public class ImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
+        Utils.setCustomDensity(this);
         mToolbar = findViewById(R.id.image$toolbar);
         mViewPager = findViewById(R.id.image$view_pager);
 

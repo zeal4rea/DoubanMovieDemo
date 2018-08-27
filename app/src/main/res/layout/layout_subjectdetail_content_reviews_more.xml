@@ -10,7 +10,7 @@
         android:id="@+id/subjectdetail_content$text_view_more_reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/subjectdetail$more_reviews"
+        android:text="@string/all_reviews"
         android:textColor="#42bd56"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

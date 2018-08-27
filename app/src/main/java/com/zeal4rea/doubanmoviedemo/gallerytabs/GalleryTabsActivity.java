@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 
 public class GalleryTabsActivity extends AppCompatActivity {
@@ -40,7 +39,13 @@ public class GalleryTabsActivity extends AppCompatActivity {
 
     private void setUpActionbar(String title) {
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setTitle(String.format(Utils.getString(R.string.photo_placeholder).toString(), title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

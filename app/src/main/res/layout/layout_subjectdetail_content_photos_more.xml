@@ -13,7 +13,7 @@
         android:id="@+id/subjectdetail_content$text_view_more_photos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/subjectdetail$more_photos"
+        android:text="@string/all_photos"
         android:textColor="#42bd56"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -9,30 +9,33 @@
         android:id="@+id/subjectdetail_content$text_view_photo_label"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:text="@string/subjectdetail$photo"
+        android:text="@string/photo_placeholder"
+        android:textColor="#aaa"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/subjectdetail_content$recycler_view_photos"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginTop="6dp"
-        android:scrollbars="horizontal"
-        android:scrollbarStyle="insideInset"
         android:requiresFadingEdge="horizontal"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_photo_label"/>
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_photo_label" />
 
     <TextView
         android:id="@+id/subjectdetail_content$text_view_no_photo"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:text="@string/subjectdetail$no_photo"
+        android:layout_marginTop="6dp"
+        android:textColor="#494949"
+        android:text="@string/no_photo"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/subjectdetail_content$recycler_view_photos"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_photo_label" />
 
 </android.support.constraint.ConstraintLayout>

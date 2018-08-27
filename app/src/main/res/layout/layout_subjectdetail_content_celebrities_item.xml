@@ -12,7 +12,7 @@
         android:id="@+id/subjectdetail_content$image_view_celebrity_avatar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/subjectdetail$image"
+        android:contentDescription="@string/image"
         app:layout_constraintDimensionRatio="W,4:3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

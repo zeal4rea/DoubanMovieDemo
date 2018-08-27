@@ -1,6 +1,7 @@
 package com.zeal4rea.doubanmoviedemo.data.remote.jsoup;
 
 import com.zeal4rea.doubanmoviedemo.bean.CommonResult;
+import com.zeal4rea.doubanmoviedemo.bean.jsoup.Celebrity4J;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Comment4J;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.PhotoTemp;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Review4J;
@@ -33,4 +34,7 @@ public interface JsoupApi {
 
     @GET("/movie/subject/{subjectId}/reviews?from=subject")
     Observable<List<Review4J>> getReviews(@Path("subjectId") String subjectId, @Query("start") int start, @Query("count") int count);
+
+    @GET("/movie/celebrity/{id}/")
+    Observable<Celebrity4J> getCelebrityDetail(@Path("id") String id);
 }

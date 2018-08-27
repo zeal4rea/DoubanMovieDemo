@@ -29,6 +29,15 @@
         <activity
             android:name=".image.ImageActivity"
             android:theme="@style/AppTheme.TransparentBackground" />
+        <activity
+            android:name=".celebritydetail.CelebrityDetailActivity"
+            android:theme="@style/AppTheme.TransparentBackground" />
+        <activity
+            android:name=".comments.CommentsActivity"
+            android:theme="@style/AppTheme.TransparentBackground" />
+        <activity
+            android:name=".reviews.ReviewsActivity"
+            android:theme="@style/AppTheme.TransparentBackground" />
     </application>
 
 </manifest>
