@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/viewBackground"
+    android:visibility="invisible">
+
+    <EditText
+        android:id="@+id/search_view_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:hint="@string/search"
+        android:imeOptions="actionSearch"
+        android:inputType="textNoSuggestions"
+        android:paddingLeft="65dp"
+        android:paddingRight="65dp"
+        android:singleLine="true"
+        android:textColor="@color/primaryTextColor"
+        android:textColorHint="@color/secondaryTextColor"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/search_view_action_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/button"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:src="@drawable/ic_action_navigation_arrow_back" />
+
+    <ImageButton
+        android:id="@+id/search_view_action_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/button"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:src="@drawable/ic_action_navigation_close"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

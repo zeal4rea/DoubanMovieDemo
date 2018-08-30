@@ -49,7 +49,7 @@ public class CelebritiesAdapter extends RecyclerView.Adapter<CelebritiesAdapter.
         TextView name;
         TextView role;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.subjectdetail_content$image_view_celebrity_avatar);
             name = itemView.findViewById(R.id.subjectdetail_content$text_view_celebrity_name);

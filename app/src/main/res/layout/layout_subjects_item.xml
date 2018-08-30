@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/movie_item$title"
-            android:textColor="@android:color/black"
+            android:textColor="@color/primaryTextColor"
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@id/subjects_item$image_view_cover"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -37,9 +37,9 @@
             android:id="@+id/subjects_item$text_view_no_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:layout_marginTop="5dp"
             android:text="@string/no_rating"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="18sp"
             android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="@id/subjects_item$text_view_title"
@@ -47,12 +47,23 @@
 
         <LinearLayout
             android:id="@+id/subjects_item$layout_rating_stars"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="@id/subjects_item$text_view_title"
             app:layout_constraintTop_toBottomOf="@id/subjects_item$text_view_title"/>
+
+        <TextView
+            android:id="@+id/subjects_item$text_view_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:textColor="@color/secondaryTextColor"
+            app:layout_constraintLeft_toRightOf="@id/subjects_item$layout_rating_stars"
+            app:layout_constraintTop_toTopOf="@id/subjects_item$layout_rating_stars"
+            app:layout_constraintBottom_toBottomOf="@id/subjects_item$layout_rating_stars"/>
 
     </android.support.constraint.ConstraintLayout>
 

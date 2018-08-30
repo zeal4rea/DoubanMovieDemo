@@ -22,9 +22,9 @@ import java.util.List;
 public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHolder> {
     private Context mContext;
     private List<Subject> mData;
-    private SubjectsFragment.SubjectItemListener mListener;
+    private SubjectItemListener mListener;
 
-    SubjectsAdapter(Context context, List<Subject> data, @NonNull SubjectsFragment.SubjectItemListener listener) {
+    public SubjectsAdapter(Context context, List<Subject> data, @NonNull SubjectItemListener listener) {
         mContext = context;
         mData = data;
         mListener = listener;
@@ -41,9 +41,17 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Subject subject = mData.get(position);
         holder.title.setText(subject.title);
-        //displayStars(holder, subject);
         boolean hasStars = RatingAndStars.fillStars(mContext, holder.starsLayout, RatingAndStars.correctRating(subject.rating.average, RatingAndStars.TYPE_10));
-        holder.noRating.setVisibility(hasStars ? View.GONE : View.VISIBLE);
+        if (hasStars) {
+            holder.rating.setText(String.valueOf(subject.rating.average));
+            holder.rating.setVisibility(View.VISIBLE);
+            holder.starsLayout.setVisibility(View.VISIBLE);
+            holder.noRating.setVisibility(View.GONE);
+        } else {
+            holder.rating.setVisibility(View.GONE);
+            holder.starsLayout.setVisibility(View.GONE);
+            holder.noRating.setVisibility(View.VISIBLE);
+        }
         Glide.with(mContext).load(subject.images.small).into(holder.cover);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +94,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
         ImageView cover;
         TextView title;
         TextView noRating;
+        TextView rating;
         LinearLayout starsLayout;
 
         ViewHolder(View itemView) {
@@ -94,7 +103,12 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
             cover = itemView.findViewById(R.id.subjects_item$image_view_cover);
             title = itemView.findViewById(R.id.subjects_item$text_view_title);
             noRating = itemView.findViewById(R.id.subjects_item$text_view_no_rating);
+            rating = itemView.findViewById(R.id.subjects_item$text_view_rating);
             starsLayout = itemView.findViewById(R.id.subjects_item$layout_rating_stars);
         }
+    }
+
+    public interface SubjectItemListener {
+        void onSubjectItemClick(Subject clickedSubject);
     }
 }

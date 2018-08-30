@@ -43,7 +43,7 @@ public class DataRepository implements DataSource {
 
     @Override
     public Observable<CommonResult<Void, Subject>> apiQuerySubjects(Map<String, String> queryMap) {
-        return null;
+        return remoteDataSource.apiQuerySubjects(queryMap);
     }
 
     @Override

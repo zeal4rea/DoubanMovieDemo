@@ -18,10 +18,12 @@ import java.util.List;
 public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder> {
     private final Context context;
     private final List<Photo4J> photos;
+    private OnItemClickListener mListener;
 
-    public PhotosAdapter(Context context, List<Photo4J> photos) {
+    public PhotosAdapter(Context context, List<Photo4J> photos, OnItemClickListener listener) {
         this.context = context;
         this.photos = photos;
+        mListener = listener;
     }
 
     @NonNull
@@ -32,9 +34,17 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if (position < 10) {
             holder.photo.setImageDrawable(null);
+            holder.photo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener != null) {
+                        mListener.onItemClick(photos, holder.getAdapterPosition());
+                    }
+                }
+            });
             Glide.with(context).load(photos.get(position).small).into(holder.photo);
         }
     }
@@ -52,5 +62,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.ViewHolder
             super(itemView);
             photo = itemView.findViewById(R.id.subjectdetail_content_photots$image_view_item);
         }
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(List<Photo4J> photos, int position);
     }
 }

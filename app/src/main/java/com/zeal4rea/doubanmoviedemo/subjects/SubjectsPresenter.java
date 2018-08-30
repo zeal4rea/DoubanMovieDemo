@@ -2,6 +2,7 @@ package com.zeal4rea.doubanmoviedemo.subjects;
 
 import android.support.annotation.NonNull;
 
+import com.zeal4rea.doubanmoviedemo.base.BaseContants;
 import com.zeal4rea.doubanmoviedemo.bean.CommonResult;
 import com.zeal4rea.doubanmoviedemo.bean.api.Subject;
 import com.zeal4rea.doubanmoviedemo.data.DataRepository;
@@ -24,7 +25,7 @@ public class SubjectsPresenter implements SubjectsContract.Presenter {
     private int mStart = 0;
     private int mTotal = -1;
 
-    public SubjectsPresenter(@NonNull DataRepository dataRepository, @NonNull SubjectsContract.View subjectsView, SubjectsType type) {
+    SubjectsPresenter(@NonNull DataRepository dataRepository, @NonNull SubjectsContract.View subjectsView, SubjectsType type) {
         mDataRepository = dataRepository;
         mSubjectsView = subjectsView;
         mType = type;
@@ -44,7 +45,7 @@ public class SubjectsPresenter implements SubjectsContract.Presenter {
         mSubjectsView.loading(true);
         mCompositeDisposable.clear();
         mDataRepository
-                .apiGetSubjects(mType, mStart, 20)
+                .apiGetSubjects(mType, mStart, BaseContants.DEFAULT_COUNT)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CommonResult<Void, Subject>>() {

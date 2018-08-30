@@ -13,11 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.base.BaseFragment;
-import com.zeal4rea.doubanmoviedemo.data.SubjectsType;
 import com.zeal4rea.doubanmoviedemo.subjects.SubjectsFragment;
-import com.zeal4rea.doubanmoviedemo.subjects.SubjectsPresenter;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 
 public class MainTabsFragment extends BaseFragment {
@@ -39,10 +36,16 @@ public class MainTabsFragment extends BaseFragment {
             if (TextUtils.isEmpty(list.get(i)))
                 continue;
             SubjectsFragment fragment = new SubjectsFragment();
+            Bundle args = new Bundle();
+            args.putInt("index", i);
+            fragment.setArguments(args);
             mPagerAdapter.addFragment(fragment, list.get(i));
-            new SubjectsPresenter(BaseApplication.getDataRepository(), fragment, SubjectsType.values()[i]);//todo
         }
 
+        if (savedInstanceState != null) {
+            int index = savedInstanceState.getInt("index", 0);
+            mViewPager.setCurrentItem(index);
+        }
         mPagerAdapter.notifyDataSetChanged();
         mTabLayout.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
@@ -51,10 +54,17 @@ public class MainTabsFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.layout_main_tabs_fragment, container, false);
         mViewPager = v.findViewById(R.id.main_tabs_fragment$view_pager);
         mTabLayout = v.findViewById(R.id.main_tabs_fragment$tab_layout);
         mProgressBar = v.findViewById(R.id.main_tabs_fragment$progress_bar);
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("index", mViewPager.getCurrentItem());
     }
 }

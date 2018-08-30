@@ -102,8 +102,8 @@ public class BaseFragment extends Fragment {
     }
 
     private void log(String method) {
-        if (BuildConfig.showLog && false) {
-            Log.d(TAG, String.format("%s:%s--->%s", className, this.toString(), method));
+        if (BuildConfig.showLog && true) {
+            Log.d(TAG, String.format("%s--->%s", this.toString(), method));
         }
     }
 }

@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/viewBackground">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/error$layout_click"
@@ -28,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textColor="#666666"
+            android:textColor="@color/secondaryTextColor"
             android:text="@string/error$click_to_reload"
             app:layout_constraintTop_toBottomOf="@+id/error$image_view"
             app:layout_constraintLeft_toLeftOf="parent"

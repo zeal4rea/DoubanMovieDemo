@@ -90,6 +90,7 @@ public class ImageActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -169,8 +170,9 @@ public class ImageActivity extends AppCompatActivity {
     }
 
     private void updateTitle() {
-        if (photos != null && !photos.isEmpty()) {
-            getSupportActionBar().setTitle((mViewPager.getCurrentItem() + 1) + "/" + photos.size());
+        ActionBar actionBar = getSupportActionBar();
+        if (photos != null && !photos.isEmpty() && actionBar != null) {
+            actionBar.setTitle((mViewPager.getCurrentItem() + 1) + "/" + photos.size());
         }
     }
 

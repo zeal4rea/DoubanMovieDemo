@@ -20,6 +20,7 @@ import com.zeal4rea.doubanmoviedemo.data.DataSource;
 import com.zeal4rea.doubanmoviedemo.data.SubjectsType;
 import com.zeal4rea.doubanmoviedemo.data.remote.api.CelebrityApi;
 import com.zeal4rea.doubanmoviedemo.data.remote.api.OtherApi;
+import com.zeal4rea.doubanmoviedemo.data.remote.api.SearchApi;
 import com.zeal4rea.doubanmoviedemo.data.remote.api.SubjectApi;
 import com.zeal4rea.doubanmoviedemo.data.remote.jsoup.JsoupApi;
 import com.zeal4rea.doubanmoviedemo.data.remote.rexxar.RexxarApi;
@@ -176,7 +177,7 @@ public class RemoteDataSource implements DataSource {
 
     @Override
     public Observable<CommonResult<Void, Subject>> apiQuerySubjects(Map<String, String> queryMap) {
-        return null;
+        return ((SearchApi) getApi(BaseContants.BASE_URL_API, SearchApi.class)).getQueryResult(queryMap);
     }
 
     @Override

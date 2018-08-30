@@ -103,6 +103,8 @@ public class RatingAndStars {
         } else {
             lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         }
+        int margin = Utils.dp2px(2);
+        lp.setMargins(margin, margin, 0, margin);
         imageView.setLayoutParams(lp);
         imageView.setImageBitmap(ImageUtil.getBase64Bitmap(context.getString(base64)));
         stars.addView(imageView);

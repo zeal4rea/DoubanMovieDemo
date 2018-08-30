@@ -3,6 +3,7 @@ package com.zeal4rea.doubanmoviedemo.util;
 import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentCallbacks;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -76,8 +77,11 @@ public class Utils {
     }
 
     public static boolean isTextEmpty(String str) {
-        str = str.trim();
-        return TextUtils.isEmpty(str) || "null".equals(str);
+        return TextUtils.isEmpty(str) || TextUtils.isEmpty(str.trim()) || "null".equals(str.trim());
+    }
+
+    public static boolean isTextEmpty(CharSequence s) {
+        return isTextEmpty(s.toString());
     }
 
     public static int dp2px(int dp) {
@@ -116,5 +120,13 @@ public class Utils {
         if (BuildConfig.showLog) {
             Log.d(tag, message);
         }
+    }
+
+    public static void sharePreferencePutBoolean(String key, boolean value) {
+        BaseApplication.getContext().getSharedPreferences(BaseApplication.getInstance().getPackageName(), Context.MODE_PRIVATE).edit().putBoolean(key, value).apply();
+    }
+
+    public static boolean sharePreferenceGetBoolean(String key, boolean defaultValue) {
+        return BaseApplication.getContext().getSharedPreferences(BaseApplication.getInstance().getPackageName(), Context.MODE_PRIVATE).getBoolean(key, defaultValue);
     }
 }

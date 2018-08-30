@@ -18,7 +18,7 @@
         <include
             android:id="@+id/subjectdetail_content$layout_basic_info"
             layout="@layout/layout_subjectdetail_content_basic_info"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <include
             android:id="@+id/subjectdetail_content$layout_celebrities"
@@ -43,9 +43,8 @@
         <include
             android:id="@+id/subjectdetail_content$layout_error"
             layout="@layout/layout_error"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
-
 
 </android.support.v4.widget.NestedScrollView>

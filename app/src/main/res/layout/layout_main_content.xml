@@ -12,16 +12,25 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            app:theme="@style/AppTheme.Toolbar">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/main_content$toolbar"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-                app:title="@string/app_name" />
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/main_content$toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/app_name" />
+
+                <com.zeal4rea.doubanmoviedemo.util.view.SimpleSearchView
+                    android:id="@+id/main_content$search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout

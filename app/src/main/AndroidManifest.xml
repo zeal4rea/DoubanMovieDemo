@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,21 +24,31 @@
         </activity>
         <activity
             android:name=".subjectdetail.SubjectDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentBackground" />
         <activity
             android:name=".gallerytabs.GalleryTabsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentBackground" />
         <activity
             android:name=".image.ImageActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentBackground" />
         <activity
             android:name=".celebritydetail.CelebrityDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentBackground" />
         <activity
             android:name=".comments.CommentsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentBackground" />
         <activity
             android:name=".reviews.ReviewsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentBackground" />
+        <activity
+            android:name=".query.QueryActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentBackground" />
     </application>
 

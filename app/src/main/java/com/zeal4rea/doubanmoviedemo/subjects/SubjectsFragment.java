@@ -19,8 +19,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zeal4rea.doubanmoviedemo.R;
+import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.base.BaseFragment;
 import com.zeal4rea.doubanmoviedemo.bean.api.Subject;
+import com.zeal4rea.doubanmoviedemo.data.SubjectsType;
 import com.zeal4rea.doubanmoviedemo.subjectdetail.SubjectDetailActivity;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 import com.zeal4rea.doubanmoviedemo.util.view.HeaderAndFooterAdapterWrapper;
@@ -36,9 +38,9 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
     private View mLayoutError;
     private SubjectsAdapter mInnerAdapter;
     private HeaderAndFooterAdapterWrapper mWrapperAdapter;
-    private final int loadThreshold = 5;
+    private static final int loadThreshold = 5;
     private boolean loadComplete = false;
-    private SubjectItemListener mListener = new SubjectItemListener() {
+    private SubjectsAdapter.SubjectItemListener mListener = new SubjectsAdapter.SubjectItemListener() {
         @Override
         public void onSubjectItemClick(Subject clickedSubject) {
             openSubjectDetail(clickedSubject);
@@ -48,6 +50,14 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        int index;
+        if (getArguments() != null) {
+            index = getArguments().getInt("index");
+        } else {
+            index = 0;
+        }
+        new SubjectsPresenter(BaseApplication.getDataRepository(), this, SubjectsType.values()[index]);
+
         mSwipeRefreshLayout.setColorSchemeResources(R.color.googleBlue, R.color.googleGreen, R.color.googleRed, R.color.googleYellow);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -173,12 +183,28 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View v = inflater.inflate(R.layout.layout_subjects_fragment, container, false);
         mSwipeRefreshLayout = v.findViewById(R.id.subjects$swipe_refresh_layout);
         mRecyclerView = v.findViewById(R.id.subjects$recycler_view);
         mLayoutEmpty = v.findViewById(R.id.subjects$layout_empty);
         mLayoutError = v.findViewById(R.id.subjects$layout_error);
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        int firstVisibleItemPosition, offset = 0;
+        LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+        View firstVisibleItem = layoutManager.findViewByPosition(firstVisibleItemPosition);
+        if (firstVisibleItem != null) {
+            offset = firstVisibleItem.getTop();
+        }
+        outState.putInt("position", firstVisibleItemPosition);
+        outState.putInt("offset", offset);
     }
 
     @Override
@@ -227,9 +253,5 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
         Intent intent = new Intent(getActivity(), SubjectDetailActivity.class);
         intent.putExtra("subject_id", subject.id);
         getActivity().startActivity(intent);
-    }
-
-    public interface SubjectItemListener {
-        void onSubjectItemClick(Subject clickedSubject);
     }
 }

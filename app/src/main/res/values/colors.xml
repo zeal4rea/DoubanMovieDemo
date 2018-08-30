@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2E963D</color>
-    <color name="colorPrimaryDark">#196939</color>
+    <color name="colorPrimary">#388e3c</color>
+    <color name="colorPrimaryDark">#1b5e20</color>
     <color name="colorAccent">#0d381e</color>
 
-    <color name="googleBlue">#4285f4</color>
-    <color name="googleRed">#ea4335</color>
-    <color name="googleYellow">#fbbc05</color>
-    <color name="googleGreen">#34a853</color>
+    <color name="googleBlue">#448aff</color>
+    <color name="googleRed">#f44336</color>
+    <color name="googleYellow">#ffc107</color>
+    <color name="googleGreen">#43a047</color>
 
     <color name="color1">#2E963D</color><!--46, 150, 61-->
     <color name="color2">#2496CD</color><!--36, 150, 205-->
     <color name="color3">#F7C894</color><!--247, 200, 148-->
+
+    <color name="primaryTextColor">#212121</color>
+    <color name="secondaryTextColor">#757575</color>
+
+    <color name="viewBackground">#fff</color>
+    <color name="clickItemBackground">#CCC</color>
+
+    <color name="tabIndicatorColor">#ffab00</color>
+    <color name="tabTextColor">#fff</color>
+    <color name="tabTextSelectedTextColor">#e0e0e0</color>
 </resources>
