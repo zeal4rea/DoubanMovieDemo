@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/viewBackground"
     tools:context=".celebritydetail.CelebrityDetailActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.Toolbar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/celebrity_detail$toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|snap|enterAlways" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/celebrity_detail$layout_basic_info"
+                layout="@layout/layout_celebrity_basic_info"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/celebrity_detail$layout_photos"
+                layout="@layout/layout_common_recyclerview"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/celebrity_detail$layout_works"
+                layout="@layout/layout_common_recyclerview"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/celebrity_detail$layout_related_celebrities"
+                layout="@layout/layout_common_recyclerview"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/celebrity_detail$layout_error"
+        layout="@layout/layout_error"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/celebrity_detail$progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</android.support.design.widget.CoordinatorLayout>

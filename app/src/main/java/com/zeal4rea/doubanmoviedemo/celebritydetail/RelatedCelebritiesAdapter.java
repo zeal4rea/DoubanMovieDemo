@@ -1,4 +1,4 @@
-package com.zeal4rea.doubanmoviedemo.subjectdetail;
+package com.zeal4rea.doubanmoviedemo.celebritydetail;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,12 +15,12 @@ import com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity;
 
 import java.util.List;
 
-public class CelebritiesAdapter extends RecyclerView.Adapter<CelebritiesAdapter.ViewHolder> {
+public class RelatedCelebritiesAdapter extends RecyclerView.Adapter<RelatedCelebritiesAdapter.ViewHolder> {
     private final Context context;
-    private final List<Celebrity> celebrities;
+    private final List<Celebrity.RelatedCelebrity> celebrities;
     private OnItemClickListener mListener;
 
-    public CelebritiesAdapter(Context context, List<Celebrity> celebrities, OnItemClickListener listener) {
+    public RelatedCelebritiesAdapter(Context context, List<Celebrity.RelatedCelebrity> celebrities, OnItemClickListener listener) {
         this.context = context;
         this.celebrities = celebrities;
         mListener = listener;
@@ -35,10 +35,10 @@ public class CelebritiesAdapter extends RecyclerView.Adapter<CelebritiesAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Celebrity celebrity = celebrities.get(position);
-        holder.name.setText(celebrity.name);
-        holder.role.setText(celebrity.role);
-        Glide.with(context).load(celebrity.cover_url).into(holder.avatar);
+        final Celebrity.RelatedCelebrity celebrity = celebrities.get(position);
+        holder.name.setText(celebrity.celebrity.name);
+        holder.role.setText(celebrity.info);
+        Glide.with(context).load(celebrity.celebrity.cover_url).into(holder.avatar);
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,6 +70,6 @@ public class CelebritiesAdapter extends RecyclerView.Adapter<CelebritiesAdapter.
     }
 
     public interface OnItemClickListener {
-        void onItemClicked(Celebrity celebrity);
+        void onItemClicked(Celebrity.RelatedCelebrity celebrity);
     }
 }

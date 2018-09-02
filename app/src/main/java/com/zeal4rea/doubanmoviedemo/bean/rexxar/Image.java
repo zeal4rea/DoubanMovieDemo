@@ -9,9 +9,9 @@ public class Image implements Serializable {
     public ImageInfo small;
 
     public static class ImageInfo implements Serializable {
-        public String height;
-        public String width;
-        public String size;
+        public int height;
+        public int width;
+        public int size;
         public String url;
     }
 }

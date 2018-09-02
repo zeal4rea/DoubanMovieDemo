@@ -10,7 +10,7 @@
         android:id="@+id/drawer$layout_header"
         android:layout_width="match_parent"
         android:layout_height="192dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorAccent"
         android:padding="20dp">
 
         <ImageView

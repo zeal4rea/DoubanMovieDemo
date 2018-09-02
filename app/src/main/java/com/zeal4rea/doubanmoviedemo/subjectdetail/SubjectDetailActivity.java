@@ -2,8 +2,10 @@ package com.zeal4rea.doubanmoviedemo.subjectdetail;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
@@ -13,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,6 +32,7 @@ import com.zeal4rea.doubanmoviedemo.bean.jsoup.Review4J;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Comment;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Subject;
+import com.zeal4rea.doubanmoviedemo.celebritydetail.CelebrityDetailActivity;
 import com.zeal4rea.doubanmoviedemo.comments.CommentsActivity;
 import com.zeal4rea.doubanmoviedemo.gallerytabs.GalleryTabsActivity;
 import com.zeal4rea.doubanmoviedemo.image.ImageActivity;
@@ -59,6 +64,7 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     private ProgressBar mProgressBar;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private ImageView mCover;
+    private TextView mTextViewCelebrityLabel;
     private TextView mTextViewPhotoLabel;
     private TextView mTextViewCommentLabel;
     private TextView mTextViewReviewLabel;
@@ -82,6 +88,13 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjectdetail);
+
+        Window window = getWindow();
+        View decorView = window.getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
         SlidrConfig config = new SlidrConfig.Builder()
                 .edge(true)
                 .build();
@@ -110,22 +123,23 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         mLayoutReviews = findViewById(R.id.subjectdetail_content$layout_reviews);
         mLayoutError = findViewById(R.id.subjectdetail_content$layout_error);
 
-        mRecyclerViewPhotos = findViewById(R.id.subjectdetail_content$recycler_view_photos);
-        mRecyclerViewComments = findViewById(R.id.subjectdetail_content$recycler_view_comments);
-        mRecyclerViewCelebrities = findViewById(R.id.subjectdetail_content$recycler_view_celebrities);
-        mRecyclerViewReviews = findViewById(R.id.subjectdetail_content$recycler_view_reviews);
+        mRecyclerViewCelebrities = mLayoutCelebrities.findViewById(R.id.common_recyclerview$recycler_view);
+        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$recycler_view);
+        mRecyclerViewComments = mLayoutComments.findViewById(R.id.common_recyclerview$recycler_view);
+        mRecyclerViewReviews = mLayoutReviews.findViewById(R.id.common_recyclerview$recycler_view);
 
         mTextViewSummaryLabel = findViewById(R.id.subjectdetail_content$text_view_summary_label);
-        mTextViewPhotoLabel = findViewById(R.id.subjectdetail_content$text_view_photo_label);
-        mTextViewCommentLabel = findViewById(R.id.subjectdetail_content$text_view_comment_label);
-        mTextViewReviewLabel = findViewById(R.id.subjectdetail_content$text_view_review_label);
+        mTextViewCelebrityLabel = mLayoutCelebrities.findViewById(R.id.common_recyclerview$text_view_label);
+        mTextViewPhotoLabel = mLayoutPhotos.findViewById(R.id.common_recyclerview$text_view_label);
+        mTextViewCommentLabel = mLayoutComments.findViewById(R.id.common_recyclerview$text_view_label);
+        mTextViewReviewLabel = mLayoutReviews.findViewById(R.id.common_recyclerview$text_view_label);
 
         mTextViewNoSummary = findViewById(R.id.subjectdetail_content$text_view_no_summary);
-        mTextViewNoCelebrities = findViewById(R.id.subjectdetail_content$text_view_no_celebrity);
-        mTextViewNoPhotos = findViewById(R.id.subjectdetail_content$text_view_no_photo);
-        mTextViewNoComments = findViewById(R.id.subjectdetail_content$text_view_no_comment);
-        mTextViewNoReviews = findViewById(R.id.subjectdetail_content$text_view_no_review);
         mTextViewNoRating = findViewById(R.id.subjectdetail_content$text_view_no_rating);
+        mTextViewNoCelebrities = mLayoutCelebrities.findViewById(R.id.common_recyclerview$text_view_no_content);
+        mTextViewNoPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$text_view_no_content);
+        mTextViewNoComments = mLayoutComments.findViewById(R.id.common_recyclerview$text_view_no_content);
+        mTextViewNoReviews = mLayoutReviews.findViewById(R.id.common_recyclerview$text_view_no_content);
 
         mPresenter.subscribe();
     }
@@ -169,10 +183,11 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     }
 
     private void setLabel(String subjectName) {
-        mTextViewSummaryLabel.setText(String.format(mTextViewSummaryLabel.getText().toString(), subjectName));
-        mTextViewPhotoLabel.setText(String.format(mTextViewPhotoLabel.getText().toString(), subjectName));
-        mTextViewCommentLabel.setText(String.format(mTextViewCommentLabel.getText().toString(), subjectName));
-        mTextViewReviewLabel.setText(String.format(mTextViewReviewLabel.getText().toString(), subjectName));
+        mTextViewCelebrityLabel.setText(Utils.getString(R.string.celebrity));
+        mTextViewSummaryLabel.setText(String.format(Utils.getString(R.string.summary_placeholder).toString(), subjectName));
+        mTextViewPhotoLabel.setText(String.format(Utils.getString(R.string.photo_placeholder).toString(), subjectName));
+        mTextViewCommentLabel.setText(String.format(Utils.getString(R.string.comment_placeholder).toString(), subjectName));
+        mTextViewReviewLabel.setText(String.format(Utils.getString(R.string.review_placeholder).toString(), subjectName));
     }
 
     private void setUpActionBar() {
@@ -188,9 +203,23 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
 
     @Override
     public void displayCelebrities(List<Celebrity> celebrities) {
+        ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mRecyclerViewCelebrities.getLayoutParams();
+        lp.height = Utils.dp2px(150);
+        mRecyclerViewCelebrities.setLayoutParams(lp);
         mRecyclerViewCelebrities.setLayoutManager(new LinearLayoutManager(SubjectDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        mRecyclerViewCelebrities.setHorizontalScrollBarEnabled(true);
+        mRecyclerViewCelebrities.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mRecyclerViewCelebrities.setNestedScrollingEnabled(false);
-        CelebritiesAdapter celebritiesAdapter = new CelebritiesAdapter(SubjectDetailActivity.this, celebrities);
+        CelebritiesAdapter celebritiesAdapter = new CelebritiesAdapter(SubjectDetailActivity.this, celebrities, new CelebritiesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(Celebrity celebrity) {
+                Intent intent = new Intent(SubjectDetailActivity.this, CelebrityDetailActivity.class);
+                Bundle b = new Bundle();
+                b.putString("celebrityId", celebrity.id);
+                intent.putExtra("b", b);
+                SubjectDetailActivity.this.startActivity(intent);
+            }
+        });
         mRecyclerViewCelebrities.setAdapter(celebritiesAdapter);
         mLayoutCelebrities.setVisibility(View.VISIBLE);
     }
@@ -198,6 +227,12 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     @Override
     public void displayPhotos(List<Photo4J> photos) {
         Utils.logWithDebugingTag("photos:" + photos.toString());
+        ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mRecyclerViewPhotos.getLayoutParams();
+        lp.height = Utils.dp2px(100);
+        mRecyclerViewPhotos.setLayoutParams(lp);
+        mRecyclerViewPhotos.setHorizontalScrollBarEnabled(true);
+        mRecyclerViewPhotos.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
+        mRecyclerViewPhotos.setHorizontalFadingEdgeEnabled(true);
         mRecyclerViewPhotos.setLayoutManager(new LinearLayoutManager(SubjectDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewPhotos.setNestedScrollingEnabled(false);
         PhotosAdapter innerAdapter = new PhotosAdapter(SubjectDetailActivity.this, photos, new PhotosAdapter.OnItemClickListener() {
@@ -278,24 +313,28 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     @Override
     public void displayNoCelebrities() {
         mRecyclerViewCelebrities.setVisibility(View.GONE);
+        mTextViewNoCelebrities.setText(Utils.getString(R.string.no_celebrity));
         mTextViewNoCelebrities.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void displayNoPhotos() {
         mRecyclerViewPhotos.setVisibility(View.GONE);
+        mTextViewNoPhotos.setText(Utils.getString(R.string.no_photo));
         mTextViewNoPhotos.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void displayNoComments() {
         mRecyclerViewComments.setVisibility(View.GONE);
+        mTextViewNoComments.setText(Utils.getString(R.string.no_comment));
         mTextViewNoComments.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void displayNoReviews() {
         mRecyclerViewReviews.setVisibility(View.GONE);
+        mTextViewNoReviews.setText(Utils.getString(R.string.no_review));
         mTextViewNoReviews.setVisibility(View.VISIBLE);
     }
 

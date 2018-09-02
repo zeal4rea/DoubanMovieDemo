@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class CelebrityWork implements Serializable {
     public String id;
     public String card_subtitle;
-    public String has_linewatch;
-    public String is_released;
+    public boolean has_linewatch;
+    public boolean is_released;
     public String null_rating_reason;
     public String released_date;
     public String sharing_url;
@@ -19,8 +19,12 @@ public class CelebrityWork implements Serializable {
     public Rating rating;
     public Picture pic;
     //public String color_scheme;
-    public String[] actors;
-    public String[] directors;
+    public PersonWithName[] actors;
+    public PersonWithName[] directors;
     public String[] genres;
     public String[] pubdate;
+
+    public static class PersonWithName implements Serializable {
+        public String name;
+    }
 }

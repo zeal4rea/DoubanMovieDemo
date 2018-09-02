@@ -6,35 +6,33 @@
     android:layout_marginBottom="15dp">
 
     <TextView
-        android:id="@+id/subjectdetail_content$text_view_celebrities_label"
+        android:id="@+id/common_recyclerview$text_view_label"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:text="@string/celebrity"
+        android:text="@string/label"
         android:textColor="@color/secondaryTextColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/subjectdetail_content$recycler_view_celebrities"
+        android:id="@+id/common_recyclerview$recycler_view"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbars="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_celebrities_label" />
+        app:layout_constraintTop_toBottomOf="@id/common_recyclerview$text_view_label" />
 
     <TextView
-        android:id="@+id/subjectdetail_content$text_view_no_celebrity"
+        android:id="@+id/common_recyclerview$text_view_no_content"
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginTop="6dp"
+        android:text="@string/no_content"
         android:textColor="@color/primaryTextColor"
-        android:text="@string/no_celebrity"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_celebrities_label" />
+        app:layout_constraintTop_toBottomOf="@id/common_recyclerview$text_view_label" />
 
 </android.support.constraint.ConstraintLayout>
