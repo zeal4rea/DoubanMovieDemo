@@ -12,7 +12,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:text="@string/test_medium"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/celebrity_detail$image_view_cover"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="10dp"
         android:text="@string/celebrity_intro"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/textSecondaryColor"
         app:layout_constraintTop_toBottomOf="@id/celebrity_detail$image_view_cover" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="@string/test_long"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         app:layout_constraintTop_toBottomOf="@id/celebrity_detail$text_view_intro_label" />
 
 </android.support.constraint.ConstraintLayout>

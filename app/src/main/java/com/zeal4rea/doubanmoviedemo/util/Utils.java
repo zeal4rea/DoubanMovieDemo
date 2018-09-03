@@ -15,6 +15,8 @@ import android.util.SparseArray;
 import com.zeal4rea.doubanmoviedemo.BuildConfig;
 import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.base.BaseContants;
+import com.zeal4rea.doubanmoviedemo.bean.api.Photo;
+import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,5 +130,22 @@ public class Utils {
 
     public static boolean sharePreferenceGetBoolean(String key, boolean defaultValue) {
         return BaseApplication.getContext().getSharedPreferences(BaseApplication.getInstance().getPackageName(), Context.MODE_PRIVATE).getBoolean(key, defaultValue);
+    }
+
+    public static List<String> extractPhotoUrl(List photos) {
+        if (photos != null && !photos.isEmpty()) {
+            List<String> result = new ArrayList<>();
+            for (Object o : photos) {
+                if (o instanceof Photo4J) {
+                    result.add(((Photo4J) o).large);
+                } else if (o instanceof com.zeal4rea.doubanmoviedemo.bean.rexxar.Photo) {
+                    result.add(((com.zeal4rea.doubanmoviedemo.bean.rexxar.Photo) o).image.large.url);
+                } else if (o instanceof com.zeal4rea.doubanmoviedemo.bean.api.Photo) {
+                    result.add(((Photo) o).image);
+                }
+            }
+            return result;
+        }
+        return null;
     }
 }

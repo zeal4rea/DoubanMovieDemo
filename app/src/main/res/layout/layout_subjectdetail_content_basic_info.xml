@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/textPrimaryColor"
             app:layout_constraintBottom_toBottomOf="@id/subjectdetail_content$linear_layout_stars"
             app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$linear_layout_stars"
             app:layout_constraintTop_toTopOf="@id/subjectdetail_content$linear_layout_stars" />
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:text="@string/rating_count_placeholder"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/textSecondaryColor"
             app:layout_constraintBottom_toBottomOf="@id/subjectdetail_content$text_view_rating"
             app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$text_view_rating"
             app:layout_constraintTop_toTopOf="@id/subjectdetail_content$text_view_rating" />
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_rating"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/textSecondaryColor"
             android:textSize="18sp"
             android:visibility="gone" />
 
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$layout_rating" />
@@ -65,7 +65,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="15dp"
         android:text="@string/summary_placeholder"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/textSecondaryColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_meta" />
@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_summary_label" />
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="@string/no_summary"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

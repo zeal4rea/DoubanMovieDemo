@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/movie_item$title"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/textPrimaryColor"
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@id/subjects_item$image_view_cover"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/no_rating"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/textSecondaryColor"
             android:textSize="18sp"
             android:visibility="visible"
             app:layout_constraintLeft_toLeftOf="@id/subjects_item$text_view_title"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
-            android:textColor="@color/secondaryTextColor"
+            android:textColor="@color/textSecondaryColor"
             app:layout_constraintLeft_toRightOf="@id/subjects_item$layout_rating_stars"
             app:layout_constraintTop_toTopOf="@id/subjects_item$layout_rating_stars"
             app:layout_constraintBottom_toBottomOf="@id/subjects_item$layout_rating_stars"/>

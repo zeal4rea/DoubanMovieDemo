@@ -1,6 +1,5 @@
 package com.zeal4rea.doubanmoviedemo.subjects;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -250,8 +249,6 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
             Toast.makeText(getActivity(), subject.title, Toast.LENGTH_SHORT).show();
         }
 
-        Intent intent = new Intent(getActivity(), SubjectDetailActivity.class);
-        intent.putExtra("subject_id", subject.id);
-        getActivity().startActivity(intent);
+        SubjectDetailActivity.newIntent(getActivity(), subject.id);
     }
 }

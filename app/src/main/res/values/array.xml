@@ -8,9 +8,12 @@
         <item>4=北美票房榜</item>
         <item>5=新片榜</item>-->
     </string-array>
-    <string-array name="photo_list_order">
+    <string-array name="subject_photo_list_order">
         <item>0=剧照</item>
         <item>1=海报</item>
         <item>2=壁纸</item>
+    </string-array>
+    <string-array name="celebrity_photo_list_order">
+        <item>0=图片</item>
     </string-array>
 </resources>

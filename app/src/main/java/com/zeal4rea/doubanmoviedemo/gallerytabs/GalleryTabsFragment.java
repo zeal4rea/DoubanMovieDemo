@@ -12,24 +12,25 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.base.BaseFragment;
 import com.zeal4rea.doubanmoviedemo.gallery.GalleryFragment;
-import com.zeal4rea.doubanmoviedemo.gallery.GalleryPresenter;
 import com.zeal4rea.doubanmoviedemo.main.CommonTabsPagerAdapter;
 
 public class GalleryTabsFragment extends BaseFragment implements GalleryTabsContract.View {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private ProgressBar mProgressBar;
-    private String subjectId;
+    private String id;
     private CommonTabsPagerAdapter mPagerAdapter;
     private GalleryTabsContract.Presenter mPresenter;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        subjectId = getArguments().getString("subjectId");
+        Bundle args = getArguments();
+        id = args.getString("id");
+        int type = args.getInt("type");
+        new GalleryTabsPresenter(this, type);
         mPagerAdapter = new CommonTabsPagerAdapter(getActivity().getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -37,10 +38,14 @@ public class GalleryTabsFragment extends BaseFragment implements GalleryTabsCont
     }
 
     @Override
-    public void addFragments(SparseArray<String> titles) {
+    public void addFragments(SparseArray<String> titles, int type) {
         for (int i = 0; i < titles.size(); i++) {
             GalleryFragment fragment = new GalleryFragment();
-            new GalleryPresenter(BaseApplication.getDataRepository(), fragment, subjectId, i);
+            Bundle args = new Bundle();
+            args.putString("id", id);
+            args.putInt("type", type);
+            args.putInt("index", i);
+            fragment.setArguments(args);
             mPagerAdapter.addFragment(fragment, titles.get(i));
         }
         mPagerAdapter.notifyDataSetChanged();

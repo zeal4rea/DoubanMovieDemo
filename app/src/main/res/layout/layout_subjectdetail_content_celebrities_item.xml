@@ -25,7 +25,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:paddingTop="10dp"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$image_view_celebrity_avatar" />
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/textSecondaryColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_celebrity_name" />

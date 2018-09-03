@@ -1,9 +1,7 @@
 package com.zeal4rea.doubanmoviedemo.gallery;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zeal4rea.doubanmoviedemo.R;
+import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.base.BaseFragment;
-import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
 import com.zeal4rea.doubanmoviedemo.image.ImageActivity;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 import com.zeal4rea.doubanmoviedemo.util.view.HeaderAndFooterAdapterWrapper;
@@ -42,6 +40,14 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Bundle args = getArguments();
+        String id = args.getString("id");
+        int type = args.getInt("type");
+        int index = args.getInt("index");
+
+        new GalleryPresenter(BaseApplication.getDataRepository(), this, id, type, index);
+
         mRefreshLayout.setColorSchemeResources(R.color.googleBlue, R.color.googleGreen, R.color.googleRed, R.color.googleYellow);
         mRefreshLayout.setOnRefreshListener(this);
         mLayoutErrorClick.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +60,7 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     }
 
     @Override
-    public void load(List<Photo4J> photos, boolean add, boolean hasMore) {
+    public void load(List<String> photos, boolean add, boolean hasMore) {
         int firstVisibleItemPosition = 0;
         int offset = 0;
         if (add) {
@@ -79,7 +85,7 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
         }
     }
 
-    private void setUpRecyclerView(List<Photo4J> photos, boolean add) {
+    private void setUpRecyclerView(List<String> photos, boolean add) {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3, LinearLayoutManager.VERTICAL, false));
         if (mRecyclerView.getItemDecorationCount() == 0) {
             mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -94,10 +100,10 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
             });
         }
         if (mInnerAdapter == null) {
-            mInnerAdapter = new GalleryAdapter(getActivity(), photos, new onItemClickListener() {
+            mInnerAdapter = new GalleryAdapter(getActivity(), photos, new GalleryAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(List<Photo4J> photos, int position) {
-                    openImageActivity(photos, position);
+                public void onItemClick(List<String> photos, int position) {
+                    ImageActivity.newIntent(getActivity(), (ArrayList<String>) photos, position);
                 }
             });
         } else {
@@ -202,18 +208,5 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     public void onDetach() {
         super.onDetach();
         mPresenter.unSubscribe();
-    }
-
-    public void openImageActivity(List<Photo4J> photos, int position) {
-        Intent intent = new Intent(getActivity(), ImageActivity.class);
-        Bundle b = new Bundle();
-        b.putParcelableArrayList("photos", (ArrayList<? extends Parcelable>) photos);
-        b.putInt("position", position);
-        intent.putExtra("b", b);
-        getActivity().startActivity(intent);
-    }
-
-    interface onItemClickListener {
-        void onItemClick(List<Photo4J> photos, int position);
     }
 }

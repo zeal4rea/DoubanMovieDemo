@@ -11,7 +11,7 @@
         android:layout_height="35dp"
         android:background="@color/clickItemBackground"
         android:gravity="center"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/textSecondaryColor"
         android:text="@string/gallery$more"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"

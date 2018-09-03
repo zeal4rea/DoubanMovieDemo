@@ -10,17 +10,16 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
     private final Context context;
-    private List<Photo4J> photos;
-    private GalleryFragment.onItemClickListener onItemClickListener;
+    private List<String> photos;
+    private OnItemClickListener onItemClickListener;
 
-    public GalleryAdapter(Context context, @NonNull List<Photo4J> photos, GalleryFragment.onItemClickListener onItemClickListener) {
+    public GalleryAdapter(Context context, @NonNull List<String> photos, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.photos = photos;
         this.onItemClickListener = onItemClickListener;
@@ -36,8 +35,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if (photos != null && !photos.isEmpty()) {
-            Photo4J photo = photos.get(position);
-            Glide.with(context).load(photo.small).into(holder.photo);
+            String url = photos.get(position);
+            Glide.with(context).load(url).into(holder.photo);
             if (onItemClickListener != null) {
                 holder.photo.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -49,7 +48,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         }
     }
 
-    public void setData(List<Photo4J> data, boolean add) {
+    public void setData(List<String> data, boolean add) {
         if (data == null || data.isEmpty())
             return;
 
@@ -76,5 +75,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             super(itemView);
             photo = itemView.findViewById(R.id.gallery$image_view_item_photo);
         }
+    }
+
+    interface OnItemClickListener {
+        void onItemClick(List<String> photos, int position);
     }
 }

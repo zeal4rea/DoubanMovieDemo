@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".main.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +26,7 @@
         <activity
             android:name=".subjectdetail.SubjectDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.TransparentBackground" />
+            android:theme="@style/AppTheme.TransparentBackgroundAndStatusBar" />
         <activity
             android:name=".gallerytabs.GalleryTabsActivity"
             android:screenOrientation="portrait"
@@ -33,7 +34,7 @@
         <activity
             android:name=".image.ImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.TransparentBackground" />
+            android:theme="@style/AppTheme.TransparentStatusBar" />
         <activity
             android:name=".celebritydetail.CelebrityDetailActivity"
             android:screenOrientation="portrait"

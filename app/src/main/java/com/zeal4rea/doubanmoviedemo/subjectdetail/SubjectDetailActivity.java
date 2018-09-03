@@ -1,12 +1,9 @@
 package com.zeal4rea.doubanmoviedemo.subjectdetail;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,6 +22,7 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.zeal4rea.doubanmoviedemo.R;
 import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
+import com.zeal4rea.doubanmoviedemo.base.BaseContants;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
 import com.zeal4rea.doubanmoviedemo.bean.jsoup.Review4J;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity;
@@ -62,7 +58,6 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     private LinearLayout mLayoutStars;
     private Toolbar mToolbar;
     private ProgressBar mProgressBar;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private ImageView mCover;
     private TextView mTextViewCelebrityLabel;
     private TextView mTextViewPhotoLabel;
@@ -80,7 +75,7 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     private TextView mTextViewRatingCount;
     private TextView mTextViewRating;
     private SubjectDetailContract.Presenter mPresenter;
-    private String subjectId;
+    private String mSubjectId;
     private Subject mSubject;
     private boolean loadFail = false;
 
@@ -89,26 +84,16 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subjectdetail);
 
-        Window window = getWindow();
-        View decorView = window.getDecorView();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-
-        SlidrConfig config = new SlidrConfig.Builder()
-                .edge(true)
-                .build();
-        Slidr.attach(this, config);
+        Slidr.attach(this, new SlidrConfig.Builder().edge(true).build());
         Utils.setCustomDensity(this);
 
-        subjectId = getIntent().getStringExtra("subject_id");
-        new SubjectDetailPresenter(this, BaseApplication.getDataRepository(), subjectId);
+        mSubjectId = getIntent().getBundleExtra("b").getString("subjectId");
+        new SubjectDetailPresenter(this, BaseApplication.getDataRepository(), mSubjectId);
 
         mToolbar = findViewById(R.id.subjectdetail$toolbar);
         mCover = findViewById(R.id.subjectdetail$image_view_cover);
         mProgressBar = findViewById(R.id.subjectdetail$progress_bar);
         mContent = findViewById(R.id.subjectdetail$content);
-        mCollapsingToolbarLayout = findViewById(R.id.subjectdetail$collapsing_toolbar_layout);
 
         mLayoutStars = findViewById(R.id.subjectdetail_content$linear_layout_stars);
         mTextViewRating = findViewById(R.id.subjectdetail_content$text_view_rating);
@@ -123,10 +108,10 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         mLayoutReviews = findViewById(R.id.subjectdetail_content$layout_reviews);
         mLayoutError = findViewById(R.id.subjectdetail_content$layout_error);
 
-        mRecyclerViewCelebrities = mLayoutCelebrities.findViewById(R.id.common_recyclerview$recycler_view);
-        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$recycler_view);
-        mRecyclerViewComments = mLayoutComments.findViewById(R.id.common_recyclerview$recycler_view);
-        mRecyclerViewReviews = mLayoutReviews.findViewById(R.id.common_recyclerview$recycler_view);
+        mRecyclerViewCelebrities = mLayoutCelebrities.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
+        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
+        mRecyclerViewComments = mLayoutComments.findViewById(R.id.common_recyclerview$recycler_view_vertical);
+        mRecyclerViewReviews = mLayoutReviews.findViewById(R.id.common_recyclerview$recycler_view_vertical);
 
         mTextViewSummaryLabel = findViewById(R.id.subjectdetail_content$text_view_summary_label);
         mTextViewCelebrityLabel = mLayoutCelebrities.findViewById(R.id.common_recyclerview$text_view_label);
@@ -154,10 +139,6 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     }
 
     private void showPage(Subject subject) {
-        if (!Utils.isTextEmpty(subject.header_bg_color)) {
-            //mCover.setBackgroundColor(Color.parseColor("#" + subject.header_bg_color));
-            mCollapsingToolbarLayout.setContentScrimColor(Color.parseColor("#" + subject.header_bg_color));
-        }
         Glide.with(SubjectDetailActivity.this).load(subject.cover_img.url).into(mCover);
         setLabel(subject.title);
         if (subject.extra.rating_group.rating != null) {
@@ -207,20 +188,16 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         lp.height = Utils.dp2px(150);
         mRecyclerViewCelebrities.setLayoutParams(lp);
         mRecyclerViewCelebrities.setLayoutManager(new LinearLayoutManager(SubjectDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerViewCelebrities.setHorizontalScrollBarEnabled(true);
         mRecyclerViewCelebrities.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mRecyclerViewCelebrities.setNestedScrollingEnabled(false);
         CelebritiesAdapter celebritiesAdapter = new CelebritiesAdapter(SubjectDetailActivity.this, celebrities, new CelebritiesAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(Celebrity celebrity) {
-                Intent intent = new Intent(SubjectDetailActivity.this, CelebrityDetailActivity.class);
-                Bundle b = new Bundle();
-                b.putString("celebrityId", celebrity.id);
-                intent.putExtra("b", b);
-                SubjectDetailActivity.this.startActivity(intent);
+                CelebrityDetailActivity.newIntent(SubjectDetailActivity.this, celebrity.id);
             }
         });
         mRecyclerViewCelebrities.setAdapter(celebritiesAdapter);
+        mRecyclerViewCelebrities.setVisibility(View.VISIBLE);
         mLayoutCelebrities.setVisibility(View.VISIBLE);
     }
 
@@ -230,20 +207,14 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mRecyclerViewPhotos.getLayoutParams();
         lp.height = Utils.dp2px(100);
         mRecyclerViewPhotos.setLayoutParams(lp);
-        mRecyclerViewPhotos.setHorizontalScrollBarEnabled(true);
-        mRecyclerViewPhotos.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
+        mRecyclerViewPhotos.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_INSET);
         mRecyclerViewPhotos.setHorizontalFadingEdgeEnabled(true);
         mRecyclerViewPhotos.setLayoutManager(new LinearLayoutManager(SubjectDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewPhotos.setNestedScrollingEnabled(false);
         PhotosAdapter innerAdapter = new PhotosAdapter(SubjectDetailActivity.this, photos, new PhotosAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(List<Photo4J> photos, int position) {
-                Intent intent = new Intent(SubjectDetailActivity.this, ImageActivity.class);
-                Bundle b = new Bundle();
-                b.putParcelableArrayList("photos", new ArrayList<Parcelable>(photos));
-                b.putInt("position", position);
-                intent.putExtra("b", b);
-                SubjectDetailActivity.this.startActivity(intent);
+                ImageActivity.newIntent(SubjectDetailActivity.this, (ArrayList<String>) Utils.extractPhotoUrl(photos), position);
             }
         });
         HeaderAndFooterAdapterWrapper adapter = new HeaderAndFooterAdapterWrapper(innerAdapter);
@@ -251,14 +222,12 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         morePhotosFooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(SubjectDetailActivity.this, GalleryTabsActivity.class);
-                i.putExtra("subjectId", subjectId);
-                i.putExtra("subjectTitle", mSubject.title);
-                SubjectDetailActivity.this.startActivity(i);
+                GalleryTabsActivity.newIntent(SubjectDetailActivity.this, mSubjectId, mSubject.title, BaseContants.TYPE_GALLERY_SUBJECT);
             }
         });
         adapter.addFooterView(morePhotosFooter);
         mRecyclerViewPhotos.setAdapter(adapter);
+        mRecyclerViewPhotos.setVisibility(View.VISIBLE);
         mLayoutPhotos.setVisibility(View.VISIBLE);
     }
 
@@ -273,16 +242,12 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         moreCommentsFooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SubjectDetailActivity.this, CommentsActivity.class);
-                Bundle b = new Bundle();
-                b.putString("subjectId", mSubject.id);
-                b.putString("subjectTitle", mSubject.title);
-                intent.putExtra("b", b);
-                SubjectDetailActivity.this.startActivity(intent);
+                CommentsActivity.newIntent(SubjectDetailActivity.this, mSubject.id, mSubject.title);
             }
         });
         adapter.addFooterView(moreCommentsFooter);
         mRecyclerViewComments.setAdapter(adapter);
+        mRecyclerViewComments.setVisibility(View.VISIBLE);
         mLayoutComments.setVisibility(View.VISIBLE);
     }
 
@@ -297,16 +262,12 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         moreReviewsFooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SubjectDetailActivity.this, ReviewsActivity.class);
-                Bundle b = new Bundle();
-                b.putString("subjectId", subjectId);
-                b.putString("subjectTitle", mSubject.title);
-                intent.putExtra("b", b);
-                SubjectDetailActivity.this.startActivity(intent);
+                ReviewsActivity.newIntent(SubjectDetailActivity.this, mSubjectId, mSubject.title);
             }
         });
         adapter.addFooterView(moreReviewsFooter);
         mRecyclerViewReviews.setAdapter(adapter);
+        mRecyclerViewReviews.setVisibility(View.VISIBLE);
         mLayoutReviews.setVisibility(View.VISIBLE);
     }
 
@@ -369,5 +330,13 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public static void newIntent(Activity fromActivity, String subjectId) {
+        Intent intent = new Intent(fromActivity, SubjectDetailActivity.class);
+        Bundle b = new Bundle();
+        b.putString("subjectId", subjectId);
+        intent.putExtra("b", b);
+        fromActivity.startActivity(intent);
     }
 }

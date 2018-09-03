@@ -18,8 +18,8 @@
         android:paddingLeft="65dp"
         android:paddingRight="65dp"
         android:singleLine="true"
-        android:textColor="@color/primaryTextColor"
-        android:textColorHint="@color/secondaryTextColor"
+        android:textColor="@color/textPrimaryColor"
+        android:textColorHint="@color/textSecondaryColor"
         android:textSize="16sp" />
 
     <ImageButton

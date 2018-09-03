@@ -19,7 +19,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="6dp"
         android:text="测试"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$image_view_commenter_icon"
         app:layout_constraintTop_toTopOf="@id/subjectdetail_content$image_view_commenter_icon" />
@@ -41,7 +41,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="6dp"
         android:text="2018-01-01"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/textSecondaryColor"
         app:layout_constraintLeft_toLeftOf="@id/subjectdetail_content$text_view_commenter_name"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_commenter_name" />
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:text="testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeettttttttttttttttttttttttttttttt"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         app:layout_constraintLeft_toLeftOf="@id/subjectdetail_content$text_view_comment_time"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_comment_time" />
@@ -64,7 +64,7 @@
         android:layout_marginTop="6dp"
         android:drawableLeft="@drawable/like"
         android:text="1234"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/textSecondaryColor"
         app:layout_constraintLeft_toLeftOf="@id/subjectdetail_content$text_view_comment_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$text_view_comment_content" />

@@ -1,5 +1,7 @@
 package com.zeal4rea.doubanmoviedemo.comments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -167,5 +169,14 @@ public class CommentsActivity extends AppCompatActivity implements CommentsContr
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public static void newIntent(Activity fromActivity, String subjectId, String subjectTitle) {
+        Intent intent = new Intent(fromActivity, CommentsActivity.class);
+        Bundle b = new Bundle();
+        b.putString("subjectId", subjectId);
+        b.putString("subjectTitle", subjectTitle);
+        intent.putExtra("b", b);
+        fromActivity.startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package com.zeal4rea.doubanmoviedemo.query;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -88,9 +89,7 @@ public class QueryActivity extends AppCompatActivity implements QueryContract.Vi
         mInnerAdapter = new SubjectsAdapter(this, new ArrayList<Subject>(), new SubjectsAdapter.SubjectItemListener() {
             @Override
             public void onSubjectItemClick(Subject clickedSubject) {
-                Intent intent = new Intent(QueryActivity.this, SubjectDetailActivity.class);
-                intent.putExtra("subject_id", clickedSubject.id);
-                QueryActivity.this.startActivity(intent);
+                SubjectDetailActivity.newIntent(QueryActivity.this, clickedSubject.id);
             }
         });
         mWrapperAdapter = new HeaderAndFooterAdapterWrapper(mInnerAdapter);
@@ -201,5 +200,14 @@ public class QueryActivity extends AppCompatActivity implements QueryContract.Vi
     @Override
     public void onRefresh() {
         mPresenter.query(false);
+    }
+
+    public static void newIntent(Activity fromActivity, String query, String tag) {
+        Intent intent = new Intent(fromActivity, QueryActivity.class);
+        Bundle b = new Bundle();
+        b.putString("q", query);
+        b.putString("tag", tag);
+        intent.putExtra("b", b);
+        fromActivity.startActivity(intent);
     }
 }

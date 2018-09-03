@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="test title"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="ccccccccccccccccccccccccccccccccccccccooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnnntttttttttttttttttttttttttttttttttttteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeennnnnnnnnnnnnnnnnnnnnnnnnnnttttttttttttttttttttttttttttt"
-        android:textColor="@color/primaryTextColor"
+        android:textColor="@color/textPrimaryColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subjectdetail_content$image_view_review_reviewer_icon" />
@@ -61,7 +61,7 @@
         android:layout_height="20dp"
         android:layout_marginLeft="3dp"
         android:text="@string/useful"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/textSecondaryColor"
         app:layout_constraintLeft_toRightOf="@id/subjectdetail_content$text_view_review_useful"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/subjectdetail_content$text_view_review_useful" />

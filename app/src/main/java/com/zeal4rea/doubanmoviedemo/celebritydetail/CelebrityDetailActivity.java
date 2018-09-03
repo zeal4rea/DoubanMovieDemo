@@ -1,5 +1,6 @@
 package com.zeal4rea.doubanmoviedemo.celebritydetail;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -18,12 +20,17 @@ import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrConfig;
 import com.zeal4rea.doubanmoviedemo.R;
 import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
+import com.zeal4rea.doubanmoviedemo.base.BaseContants;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.CelebrityWork;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Photo;
+import com.zeal4rea.doubanmoviedemo.gallerytabs.GalleryTabsActivity;
+import com.zeal4rea.doubanmoviedemo.image.ImageActivity;
 import com.zeal4rea.doubanmoviedemo.subjectdetail.SubjectDetailActivity;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
+import com.zeal4rea.doubanmoviedemo.util.view.HeaderAndFooterAdapterWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CelebrityDetailActivity extends AppCompatActivity implements CelebrityDetailContract.View {
@@ -47,6 +54,8 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
     private TextView mTextViewNoPhoto;
     private TextView mTextViewNoCelebrity;
     private TextView mTextViewNoWork;
+    private String mCelebrityId;
+    private String mCelebrityName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +65,9 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
         Slidr.attach(this, new SlidrConfig.Builder().edge(true).build());
 
         Bundle b = getIntent().getBundleExtra("b");
-        String celebrityId = b.getString("celebrityId");
+        mCelebrityId = b.getString("celebrityId");
 
-        new CelebrityDetailPresenter(this, BaseApplication.getDataRepository(), celebrityId);
+        new CelebrityDetailPresenter(this, BaseApplication.getDataRepository(), mCelebrityId);
 
         Toolbar mToolbar = findViewById(R.id.celebrity_detail$toolbar);
         mProgressBar = findViewById(R.id.celebrity_detail$progress_bar);
@@ -76,9 +85,9 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
         mTextViewCelebritiesLabel = mLayoutRelatedCelebrities.findViewById(R.id.common_recyclerview$text_view_label);
         mTextViewWorkLabel = mLayoutWorks.findViewById(R.id.common_recyclerview$text_view_label);
 
-        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$recycler_view);
-        mRecyclerViewCelebrities = mLayoutRelatedCelebrities.findViewById(R.id.common_recyclerview$recycler_view);
-        mRecyclerViewWorks = mLayoutWorks.findViewById(R.id.common_recyclerview$recycler_view);
+        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
+        mRecyclerViewCelebrities = mLayoutRelatedCelebrities.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
+        mRecyclerViewWorks = mLayoutWorks.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
 
         mTextViewNoPhoto = mLayoutPhotos.findViewById(R.id.common_recyclerview$text_view_no_content);
         mTextViewNoCelebrity = mLayoutRelatedCelebrities.findViewById(R.id.common_recyclerview$text_view_no_content);
@@ -104,7 +113,7 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
 
     @Override
     public void displayBasicInfo(Celebrity celebrity) {
-        setUpTitle(celebrity.name);
+        setUpTitle(mCelebrityName = celebrity.name);
         mTextViewInfo.setText(celebrity.info);
         mTextViewIntro.setText(celebrity.intro);
         Glide.with(this).load(celebrity.avatar.normal).into(mImageViewCover);
@@ -112,22 +121,37 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
     }
 
     @Override
-    public void displayPhotos(List<Photo> photos) {
+    public void displayPhotos(List<Photo> photos, boolean hasMore) {
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mRecyclerViewPhotos.getLayoutParams();
         lp.height = Utils.dp2px(100);
         mRecyclerViewPhotos.setLayoutParams(lp);
-        mRecyclerViewPhotos.setHorizontalScrollBarEnabled(true);
-        mRecyclerViewPhotos.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
+        mRecyclerViewPhotos.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_INSET);
         mRecyclerViewPhotos.setHorizontalFadingEdgeEnabled(true);
         mRecyclerViewPhotos.setNestedScrollingEnabled(false);
         mRecyclerViewPhotos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         PhotosAdapter photosAdapter = new PhotosAdapter(this, photos, new PhotosAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(List<Photo> photos, int position) {
+                ImageActivity.newIntent(CelebrityDetailActivity.this, (ArrayList<String>) Utils.extractPhotoUrl(photos), position);
             }
         });
-        mRecyclerViewPhotos.setAdapter(photosAdapter);
+        if (hasMore) {
+            HeaderAndFooterAdapterWrapper wrapper = new HeaderAndFooterAdapterWrapper(photosAdapter);
+            View moreFooter = LayoutInflater.from(this).inflate(R.layout.layout_subjectdetail_content_photos_more, mRecyclerViewPhotos, false);
+            moreFooter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    GalleryTabsActivity.newIntent(CelebrityDetailActivity.this, mCelebrityId, mCelebrityName, BaseContants.TYPE_GALLERY_CELEBRITY);
+                }
+            });
+            wrapper.addFooterView(moreFooter);
+            mRecyclerViewPhotos.setAdapter(wrapper);
+        } else {
+            mRecyclerViewPhotos.setAdapter(photosAdapter);
+        }
 
+
+        mRecyclerViewPhotos.setVisibility(View.VISIBLE);
         mLayoutPhotos.setVisibility(View.VISIBLE);
     }
 
@@ -136,23 +160,18 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mRecyclerViewWorks.getLayoutParams();
         lp.height = Utils.dp2px(200);
         mRecyclerViewWorks.setLayoutParams(lp);
-        mRecyclerViewWorks.setHorizontalScrollBarEnabled(true);
+        mRecyclerViewWorks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewWorks.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mRecyclerViewWorks.setNestedScrollingEnabled(false);
-        mRecyclerViewWorks.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         WorksAdapter worksAdapter = new WorksAdapter(this, works, new WorksAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CelebrityWork work) {
-                Intent intent = new Intent(CelebrityDetailActivity.this, SubjectDetailActivity.class);
-                Bundle b = new Bundle();
-                b.putString("subjectId", work.id);
-                b.putString("subjectTitle", work.title);
-                intent.putExtra("b", b);
-                CelebrityDetailActivity.this.startActivity(intent);
+                SubjectDetailActivity.newIntent(CelebrityDetailActivity.this, work.id);
             }
         });
         mRecyclerViewWorks.setAdapter(worksAdapter);
 
+        mRecyclerViewWorks.setVisibility(View.VISIBLE);
         mLayoutWorks.setVisibility(View.VISIBLE);
     }
 
@@ -160,23 +179,19 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
     public void displayRelatedCelebrities(List<Celebrity.RelatedCelebrity> relatedCelebrities) {
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mRecyclerViewCelebrities.getLayoutParams();
         lp.height = Utils.dp2px(150);
+        mRecyclerViewCelebrities.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewCelebrities.setLayoutParams(lp);
-        mRecyclerViewCelebrities.setHorizontalScrollBarEnabled(true);
         mRecyclerViewCelebrities.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         mRecyclerViewCelebrities.setNestedScrollingEnabled(false);
-        mRecyclerViewCelebrities.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         RelatedCelebritiesAdapter celebritiesAdapter = new RelatedCelebritiesAdapter(this, relatedCelebrities, new RelatedCelebritiesAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(Celebrity.RelatedCelebrity celebrity) {
-                Intent intent = new Intent(CelebrityDetailActivity.this, CelebrityDetailActivity.class);
-                Bundle b = new Bundle();
-                b.putString("celebrityId", celebrity.celebrity.id);
-                intent.putExtra("b", b);
-                CelebrityDetailActivity.this.startActivity(intent);
+                CelebrityDetailActivity.newIntent(CelebrityDetailActivity.this, celebrity.celebrity.id);
             }
         });
         mRecyclerViewCelebrities.setAdapter(celebritiesAdapter);
 
+        mRecyclerViewCelebrities.setVisibility(View.VISIBLE);
         mLayoutRelatedCelebrities.setVisibility(View.VISIBLE);
     }
 
@@ -233,5 +248,13 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.unSubscribe();
+    }
+
+    public static void newIntent(Activity fromActivity, String celebrityId) {
+        Intent intent = new Intent(fromActivity, CelebrityDetailActivity.class);
+        Bundle b = new Bundle();
+        b.putString("celebrityId", celebrityId);
+        intent.putExtra("b", b);
+        fromActivity.startActivity(intent);
     }
 }

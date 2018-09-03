@@ -44,8 +44,8 @@ public class CelebrityDetailPresenter implements CelebrityDetailContract.Present
                         if (celebrity != null) {
                             mView.displayBasicInfo(celebrity);
 
-                            if (celebrity.album != null && celebrity.album.total > 0) {
-                                mView.displayPhotos(new ArrayList<>(Arrays.asList(celebrity.album.photos)));
+                            if (celebrity.album != null && celebrity.album.total > 0 && celebrity.album.photos.length > 0) {
+                                mView.displayPhotos(new ArrayList<>(Arrays.asList(celebrity.album.photos)), celebrity.album.total > celebrity.album.photos.length);
                             } else {
                                 mView.displayNoPhoto();
                             }

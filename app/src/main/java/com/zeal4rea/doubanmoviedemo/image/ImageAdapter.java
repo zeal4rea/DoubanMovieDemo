@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +15,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
 
 import java.util.List;
 
 public class ImageAdapter extends PagerAdapter {
 
     private final LayoutInflater layoutInflater;
-    private List<Photo4J> photos;
+    private List<String> photos;
 
-    public ImageAdapter(Context context, List<Photo4J> photos) {
+    public ImageAdapter(Context context, List<String> photos) {
         layoutInflater = LayoutInflater.from(context);
         this.photos = photos;
     }
@@ -39,7 +37,7 @@ public class ImageAdapter extends PagerAdapter {
 
         Glide
                 .with(content.getContext().getApplicationContext())
-                .load(photos.get(position).large)
+                .load(photos.get(position))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

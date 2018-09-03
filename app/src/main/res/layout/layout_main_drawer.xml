@@ -2,46 +2,68 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:background="@color/viewBackground">
+    android:layout_height="200dp"
+    android:background="@drawable/nav_bg"
+    android:padding="16dp">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/drawer$layout_header"
-        android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:background="@color/colorAccent"
-        android:padding="20dp">
+    <TextView
+        android:id="@+id/drawer$text_view_night_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/night_mode"
+        android:textColor="@color/textPrimaryColorInverted"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
-        <ImageView
-            android:id="@+id/drawer$image_view_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/image"
-            android:src="@mipmap/ic_launcher"
-            app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/drawer$switch_night_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/drawer$text_view_night_mode"
+        app:layout_constraintLeft_toRightOf="@id/drawer$text_view_night_mode"
+        app:layout_constraintTop_toTopOf="@id/drawer$text_view_night_mode" />
 
-        <TextView
-            android:id="@+id/drawer$text_view_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/author_nickname"
-            app:layout_constraintTop_toBottomOf="@id/drawer$image_view_icon" />
+    <TextView
+        android:id="@+id/drawer$text_view_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="@string/author_email"
+        android:textColor="@color/textPrimaryColorInverted"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/drawer$text_view_night_mode" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="@string/author_email"
-            app:layout_constraintLeft_toLeftOf="@id/drawer$text_view_nickname"
-            app:layout_constraintTop_toBottomOf="@id/drawer$text_view_nickname" />
+    <TextView
+        android:id="@+id/drawer$text_view_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="@string/author_nickname"
+        android:textColor="@color/textPrimaryColorInverted"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/drawer$text_view_email" />
 
-    </android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/drawer$image_view_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:contentDescription="@string/image"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toTopOf="@id/drawer$text_view_nickname" />
 
-    <android.support.constraint.Guideline
+    <!--<android.support.constraint.ConstraintLayout
+    android:id="@+id/drawer$layout_header"
+    android:layout_width="match_parent"
+    android:layout_height="192dp"
+    android:background="@color/colorAccent">
+
+    </android.support.constraint.ConstraintLayout>-->
+
+    <!--<android.support.constraint.Guideline
         android:id="@+id/drawer$guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,6 +88,6 @@
         app:layout_constraintBottom_toBottomOf="@id/drawer$text_view_night_mode"
         app:layout_constraintLeft_toRightOf="@id/drawer$text_view_night_mode"
         app:layout_constraintRight_toRightOf="@id/drawer$guideline"
-        app:layout_constraintTop_toTopOf="@id/drawer$text_view_night_mode" />
+        app:layout_constraintTop_toTopOf="@id/drawer$text_view_night_mode" />-->
 
 </android.support.constraint.ConstraintLayout>

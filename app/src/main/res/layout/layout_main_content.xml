@@ -12,23 +12,21 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             app:theme="@style/AppTheme.Toolbar">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/main_content$toolbar"
+                    android:id="@+id/main$toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:title="@string/app_name" />
 
                 <com.zeal4rea.doubanmoviedemo.util.view.SimpleSearchView
-                    android:id="@+id/main_content$search_view"
+                    android:id="@+id/main$search_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -36,10 +34,10 @@
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
-            android:id="@+id/main_content$container"
+            android:id="@+id/main$container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

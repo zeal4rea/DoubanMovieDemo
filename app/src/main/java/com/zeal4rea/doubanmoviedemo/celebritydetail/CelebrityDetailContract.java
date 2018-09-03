@@ -12,7 +12,7 @@ public interface CelebrityDetailContract {
     interface View extends BaseView<Presenter> {
         void setUpTitle(String title);
         void displayBasicInfo(Celebrity celebrity);
-        void displayPhotos(List<Photo> photos);
+        void displayPhotos(List<Photo> photos, boolean hasMore);
         void displayWorks(List<CelebrityWork> works);
         void displayRelatedCelebrities(List<Celebrity.RelatedCelebrity> relatedCelebrities);
         void displayNoPhoto();

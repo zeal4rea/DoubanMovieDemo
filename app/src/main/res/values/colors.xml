@@ -13,8 +13,11 @@
     <color name="color2">#2496CD</color><!--36, 150, 205-->
     <color name="color3">#F7C894</color><!--247, 200, 148-->
 
-    <color name="primaryTextColor">#212121</color>
-    <color name="secondaryTextColor">#757575</color>
+    <color name="textPrimaryColor">#212121</color>
+    <color name="textSecondaryColor">#757575</color>
+
+    <color name="textPrimaryColorInverted">#e0e0e0</color>
+    <color name="textSecondaryColorInverted">#bdbdbd</color>
 
     <color name="viewBackground">#fff</color>
     <color name="clickItemBackground">#CCC</color>

@@ -1,5 +1,7 @@
 package com.zeal4rea.doubanmoviedemo.image;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -15,9 +17,9 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.bean.jsoup.Photo4J;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImageActivity extends AppCompatActivity {
@@ -26,7 +28,7 @@ public class ImageActivity extends AppCompatActivity {
     private static final int AUTO_HIDE_DELAY = 3000;
     private static final int UI_ANIMATION_DELAY = 300;
     private ViewPager mViewPager;
-    private List<Photo4J> photos;
+    private List<String> photos;
 
     private Animation fadeIn = new AlphaAnimation(0, 1);
     private Animation fadeOut = new AlphaAnimation(1, 0);
@@ -108,7 +110,7 @@ public class ImageActivity extends AppCompatActivity {
         mHideRunnable.run();
 
         Bundle b = getIntent().getBundleExtra("b");
-        photos = b.getParcelableArrayList("photos");
+        photos = b.getStringArrayList("photos");
 
         ImageAdapter imageAdapter = new ImageAdapter(this, photos);
         mViewPager.setAdapter(imageAdapter);
@@ -180,5 +182,14 @@ public class ImageActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public static void newIntent(Activity fromActivity, ArrayList<String> photos, int position) {
+        Intent intent = new Intent(fromActivity, ImageActivity.class);
+        Bundle b = new Bundle();
+        b.putStringArrayList("photos", photos);
+        b.putInt("position", position);
+        intent.putExtra("b", b);
+        fromActivity.startActivity(intent);
     }
 }

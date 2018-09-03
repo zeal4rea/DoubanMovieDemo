@@ -4,12 +4,10 @@ import android.util.SparseArray;
 
 import com.zeal4rea.doubanmoviedemo.base.BasePresenter;
 import com.zeal4rea.doubanmoviedemo.base.BaseView;
-import com.zeal4rea.doubanmoviedemo.bean.CommonResult;
-import com.zeal4rea.doubanmoviedemo.bean.jsoup.PhotoTemp;
 
 public interface GalleryTabsContract {
     interface View extends BaseView<Presenter> {
-        void addFragments(SparseArray<String> titles);
+        void addFragments(SparseArray<String> titles, int type);
         void displayErrorPage();
         void initComplete();
     }
