@@ -24,10 +24,12 @@ import com.zeal4rea.doubanmoviedemo.base.BaseContants;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Celebrity;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.CelebrityWork;
 import com.zeal4rea.doubanmoviedemo.bean.rexxar.Photo;
+import com.zeal4rea.doubanmoviedemo.celebrityworks.CelebrityWorksTabsActivity;
 import com.zeal4rea.doubanmoviedemo.gallerytabs.GalleryTabsActivity;
 import com.zeal4rea.doubanmoviedemo.image.ImageActivity;
 import com.zeal4rea.doubanmoviedemo.subjectdetail.SubjectDetailActivity;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
+import com.zeal4rea.doubanmoviedemo.util.view.ExpandableTextView;
 import com.zeal4rea.doubanmoviedemo.util.view.HeaderAndFooterAdapterWrapper;
 
 import java.util.ArrayList;
@@ -43,10 +45,7 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
     private View mLayoutRelatedCelebrities;
     private View mLayoutErrorPage;
     private TextView mTextViewInfo;
-    private TextView mTextViewIntro;
-    private TextView mTextViewPhotoLabel;
-    private TextView mTextViewCelebritiesLabel;
-    private TextView mTextViewWorkLabel;
+    private ExpandableTextView mTextViewIntro;
     private ImageView mImageViewCover;
     private RecyclerView mRecyclerViewPhotos;
     private RecyclerView mRecyclerViewCelebrities;
@@ -69,7 +68,7 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
 
         new CelebrityDetailPresenter(this, BaseApplication.getDataRepository(), mCelebrityId);
 
-        Toolbar mToolbar = findViewById(R.id.celebrity_detail$toolbar);
+        Toolbar toolbar = findViewById(R.id.celebrity_detail$toolbar);
         mProgressBar = findViewById(R.id.celebrity_detail$progress_bar);
 
         mLayoutBasicInfo = findViewById(R.id.celebrity_detail$layout_basic_info);
@@ -81,20 +80,23 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
         mTextViewInfo = mLayoutBasicInfo.findViewById(R.id.celebrity_detail$text_view_info);
         mTextViewIntro = mLayoutBasicInfo.findViewById(R.id.celebrity_detail$text_view_intro);
         mImageViewCover = mLayoutBasicInfo.findViewById(R.id.celebrity_detail$image_view_cover);
-        mTextViewPhotoLabel = mLayoutPhotos.findViewById(R.id.common_recyclerview$text_view_label);
-        mTextViewCelebritiesLabel = mLayoutRelatedCelebrities.findViewById(R.id.common_recyclerview$text_view_label);
-        mTextViewWorkLabel = mLayoutWorks.findViewById(R.id.common_recyclerview$text_view_label);
+        TextView mTextViewPhotoLabel = mLayoutPhotos.findViewById(R.id.common_detail_recyclerview$text_view_label);
+        TextView mTextViewCelebritiesLabel = mLayoutRelatedCelebrities.findViewById(R.id.common_detail_recyclerview$text_view_label);
+        TextView mTextViewWorkLabel = mLayoutWorks.findViewById(R.id.common_detail_recyclerview$text_view_label);
 
-        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
-        mRecyclerViewCelebrities = mLayoutRelatedCelebrities.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
-        mRecyclerViewWorks = mLayoutWorks.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
+        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_detail_recyclerview$recycler_view_horizontal);
+        mRecyclerViewCelebrities = mLayoutRelatedCelebrities.findViewById(R.id.common_detail_recyclerview$recycler_view_horizontal);
+        mRecyclerViewWorks = mLayoutWorks.findViewById(R.id.common_detail_recyclerview$recycler_view_horizontal);
 
-        mTextViewNoPhoto = mLayoutPhotos.findViewById(R.id.common_recyclerview$text_view_no_content);
-        mTextViewNoCelebrity = mLayoutRelatedCelebrities.findViewById(R.id.common_recyclerview$text_view_no_content);
-        mTextViewNoWork = mLayoutWorks.findViewById(R.id.common_recyclerview$text_view_no_content);
+        mTextViewNoPhoto = mLayoutPhotos.findViewById(R.id.common_detail_recyclerview$text_view_no_content);
+        mTextViewNoCelebrity = mLayoutRelatedCelebrities.findViewById(R.id.common_detail_recyclerview$text_view_no_content);
+        mTextViewNoWork = mLayoutWorks.findViewById(R.id.common_detail_recyclerview$text_view_no_content);
 
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         mTextViewPhotoLabel.setText(Utils.getString(R.string.image));
         mTextViewCelebritiesLabel.setText(Utils.getString(R.string.related_celebrities));
@@ -137,7 +139,9 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
         });
         if (hasMore) {
             HeaderAndFooterAdapterWrapper wrapper = new HeaderAndFooterAdapterWrapper(photosAdapter);
-            View moreFooter = LayoutInflater.from(this).inflate(R.layout.layout_subjectdetail_content_photos_more, mRecyclerViewPhotos, false);
+            View moreFooter = LayoutInflater.from(this).inflate(R.layout.layout_common_horizontal_recyclerview_item_more, mRecyclerViewPhotos, false);
+            TextView textViewMorePhotos = moreFooter.findViewById(R.id.common_horizontal_recyclerview$text_view_more);
+            textViewMorePhotos.setText(Utils.getString(R.string.all_photos));
             moreFooter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -150,13 +154,12 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
             mRecyclerViewPhotos.setAdapter(photosAdapter);
         }
 
-
         mRecyclerViewPhotos.setVisibility(View.VISIBLE);
         mLayoutPhotos.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void displayWorks(List<CelebrityWork> works) {
+    public void displayWorks(List<CelebrityWork> works, boolean hasMore) {
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) mRecyclerViewWorks.getLayoutParams();
         lp.height = Utils.dp2px(200);
         mRecyclerViewWorks.setLayoutParams(lp);
@@ -169,7 +172,27 @@ public class CelebrityDetailActivity extends AppCompatActivity implements Celebr
                 SubjectDetailActivity.newIntent(CelebrityDetailActivity.this, work.id);
             }
         });
-        mRecyclerViewWorks.setAdapter(worksAdapter);
+        if (hasMore) {
+            HeaderAndFooterAdapterWrapper wrapper = new HeaderAndFooterAdapterWrapper(worksAdapter);
+            View moreFooter = LayoutInflater.from(this).inflate(R.layout.layout_celebrity_works_item, mRecyclerViewWorks, false);
+            TextView textViewMorePhotos = moreFooter.findViewById(R.id.celebrity_works$text_view_spare);
+            textViewMorePhotos.setText(Utils.getString(R.string.all_works));
+            textViewMorePhotos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CelebrityWorksTabsActivity.newIntent(CelebrityDetailActivity.this, mCelebrityId, mCelebrityName);
+                }
+            });
+            textViewMorePhotos.setVisibility(View.VISIBLE);
+            moreFooter.findViewById(R.id.celebrity_works$image_view_cover).setVisibility(View.GONE);
+            moreFooter.findViewById(R.id.celebrity_works$text_view_rating).setVisibility(View.GONE);
+            moreFooter.findViewById(R.id.celebrity_works$text_view_title).setVisibility(View.GONE);
+            moreFooter.findViewById(R.id.celebrity_works$layout_stars).setVisibility(View.GONE);
+            wrapper.addFooterView(moreFooter);
+            mRecyclerViewWorks.setAdapter(wrapper);
+        } else {
+            mRecyclerViewWorks.setAdapter(worksAdapter);
+        }
 
         mRecyclerViewWorks.setVisibility(View.VISIBLE);
         mLayoutWorks.setVisibility(View.VISIBLE);

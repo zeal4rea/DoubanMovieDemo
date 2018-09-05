@@ -39,8 +39,12 @@ public class WorksAdapter extends RecyclerView.Adapter<WorksAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final CelebrityWork work = mWorks.get(position);
         holder.title.setText(work.title);
-        holder.rating.setText(String.valueOf(work.rating.value));
-        RatingAndStars.fillStars(mContext, holder.layoutStars, RatingAndStars.correctRating(work.rating.value, (int) work.rating.max));
+        if (work.rating != null && RatingAndStars.fillStars(mContext, holder.layoutStars, RatingAndStars.correctRating(work.rating.value, (int) work.rating.max))) {
+            holder.rating.setText(String.valueOf(work.rating.value));
+        } else {
+            RatingAndStars.fillEmptyStars(mContext, holder.layoutStars);
+            holder.rating.setText(String.valueOf(0f));
+        }
         Glide.with(mContext).load(work.pic.normal).into(holder.cover);
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override

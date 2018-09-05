@@ -41,7 +41,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Subject subject = mData.get(position);
         holder.title.setText(subject.title);
-        boolean hasStars = RatingAndStars.fillStars(mContext, holder.starsLayout, RatingAndStars.correctRating(subject.rating.average, RatingAndStars.TYPE_10));
+        boolean hasStars = RatingAndStars.fillStars(mContext, holder.starsLayout, RatingAndStars.correctRating(subject.rating.average, subject.rating.max));
         if (hasStars) {
             holder.rating.setText(String.valueOf(subject.rating.average));
             holder.rating.setVisibility(View.VISIBLE);

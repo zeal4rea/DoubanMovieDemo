@@ -51,6 +51,10 @@
             android:name=".query.QueryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransparentBackground" />
+        <activity
+            android:name=".celebrityworks.CelebrityWorksTabsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransparentBackground" />
     </application>
 
 </manifest>

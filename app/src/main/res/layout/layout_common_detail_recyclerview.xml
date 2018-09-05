@@ -6,7 +6,7 @@
     android:layout_marginBottom="15dp">
 
     <TextView
-        android:id="@+id/common_recyclerview$text_view_label"
+        android:id="@+id/common_detail_recyclerview$text_view_label"
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:text="@string/label"
@@ -15,7 +15,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/common_recyclerview$recycler_view_vertical"
+        android:id="@+id/common_detail_recyclerview$recycler_view_vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -23,10 +23,10 @@
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/common_recyclerview$text_view_label" />
+        app:layout_constraintTop_toBottomOf="@id/common_detail_recyclerview$text_view_label" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/common_recyclerview$recycler_view_horizontal"
+        android:id="@+id/common_detail_recyclerview$recycler_view_horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -34,10 +34,10 @@
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/common_recyclerview$text_view_label" />
+        app:layout_constraintTop_toBottomOf="@id/common_detail_recyclerview$text_view_label" />
 
     <TextView
-        android:id="@+id/common_recyclerview$text_view_no_content"
+        android:id="@+id/common_detail_recyclerview$text_view_no_content"
         android:layout_width="0dp"
         android:layout_height="20dp"
         android:layout_marginTop="6dp"
@@ -46,6 +46,6 @@
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/common_recyclerview$text_view_label" />
+        app:layout_constraintTop_toBottomOf="@id/common_detail_recyclerview$text_view_label" />
 
 </android.support.constraint.ConstraintLayout>

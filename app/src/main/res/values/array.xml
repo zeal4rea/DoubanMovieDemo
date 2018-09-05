@@ -16,4 +16,8 @@
     <string-array name="celebrity_photo_list_order">
         <item>0=图片</item>
     </string-array>
+    <string-array name="celebrity_work_list_order">
+        <item>0=按评价</item>
+        <item>1=按时间</item>
+    </string-array>
 </resources>

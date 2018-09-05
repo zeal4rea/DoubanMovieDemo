@@ -67,10 +67,10 @@ public class GalleryTabsFragment extends BaseFragment implements GalleryTabsCont
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_gallery_tabs_content, container, false);
-        mViewPager = view.findViewById(R.id.gallerytabs$view_pager);
-        mTabLayout = view.findViewById(R.id.gallerytabs$tab_layout);
-        mProgressBar = view.findViewById(R.id.gallerytabs$progress_bar);
+        View view = inflater.inflate(R.layout.layout_common_tabs_fragment, container, false);
+        mViewPager = view.findViewById(R.id.common_tabs_fragment$view_pager);
+        mTabLayout = view.findViewById(R.id.common_tabs_fragment$tab_layout);
+        mProgressBar = view.findViewById(R.id.common_tabs_fragment$progress_bar);
         return view;
     }
 

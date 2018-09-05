@@ -48,6 +48,7 @@ public class MainTabsFragment extends BaseFragment {
         }
         mPagerAdapter.notifyDataSetChanged();
         mTabLayout.setVisibility(View.VISIBLE);
+        mViewPager.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
     }
 
@@ -55,10 +56,10 @@ public class MainTabsFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View v = inflater.inflate(R.layout.layout_main_tabs_fragment, container, false);
-        mViewPager = v.findViewById(R.id.main_tabs_fragment$view_pager);
-        mTabLayout = v.findViewById(R.id.main_tabs_fragment$tab_layout);
-        mProgressBar = v.findViewById(R.id.main_tabs_fragment$progress_bar);
+        View v = inflater.inflate(R.layout.layout_common_tabs_fragment, container, false);
+        mViewPager = v.findViewById(R.id.common_tabs_fragment$view_pager);
+        mTabLayout = v.findViewById(R.id.common_tabs_fragment$tab_layout);
+        mProgressBar = v.findViewById(R.id.common_tabs_fragment$progress_bar);
         return v;
     }
 

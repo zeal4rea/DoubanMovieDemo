@@ -3,19 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/clickItemBackground"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:paddingTop="15dp">
 
     <TextView
-        android:id="@+id/subjectdetail_content$text_view_more_comments"
+        android:id="@+id/common_vertical_recyclerview$text_view_no_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/all_comments"
+        android:gravity="center"
         android:textColor="@color/textSecondaryColor"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/gallery$no_more"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

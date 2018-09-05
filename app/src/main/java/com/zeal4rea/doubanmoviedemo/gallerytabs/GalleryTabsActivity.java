@@ -15,23 +15,26 @@ import com.zeal4rea.doubanmoviedemo.R;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 
 public class GalleryTabsActivity extends AppCompatActivity {
-    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallerytabs);
+        setContentView(R.layout.activity_common_fragment_container);
         Utils.setCustomDensity(this);
         Slidr.attach(this, new SlidrConfig.Builder().edge(true).build());
-
-        mToolbar = findViewById(R.id.gallerytabs$toolbar);
 
         Bundle b = getIntent().getBundleExtra("b");
         String id = b.getString("id");
         String title = b.getString("title");
         int type = b.getInt("type");
 
-        setUpActionbar(title);
+        Toolbar toolbar = findViewById(R.id.common_fragment_container$toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setTitle(String.format(Utils.getString(R.string.photo_placeholder).toString(), title));
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         GalleryTabsFragment galleryTabsFragment = new GalleryTabsFragment();
         Bundle args = new Bundle();
@@ -39,17 +42,11 @@ public class GalleryTabsActivity extends AppCompatActivity {
         args.putInt("type", type);
         galleryTabsFragment.setArguments(args);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.gallerytabs$layout_content, galleryTabsFragment);
+        fragmentTransaction.replace(R.id.common_fragment_container$layout_content, galleryTabsFragment);
         fragmentTransaction.commit();
     }
 
     private void setUpActionbar(String title) {
-        setSupportActionBar(mToolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setTitle(String.format(Utils.getString(R.string.photo_placeholder).toString(), title));
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override

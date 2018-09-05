@@ -45,13 +45,14 @@ public class CelebrityDetailPresenter implements CelebrityDetailContract.Present
                             mView.displayBasicInfo(celebrity);
 
                             if (celebrity.album != null && celebrity.album.total > 0 && celebrity.album.photos.length > 0) {
+                                //todo
                                 mView.displayPhotos(new ArrayList<>(Arrays.asList(celebrity.album.photos)), celebrity.album.total > celebrity.album.photos.length);
                             } else {
                                 mView.displayNoPhoto();
                             }
 
                             if (celebrity.works_count > 0) {
-                                mView.displayWorks(new ArrayList<>(Arrays.asList(celebrity.latest_works)));
+                                mView.displayWorks(new ArrayList<>(Arrays.asList(celebrity.latest_works)), celebrity.works_count > celebrity.latest_works.length);
                             } else {
                                 mView.displayNoWork();
                             }

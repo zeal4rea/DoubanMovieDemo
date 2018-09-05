@@ -128,7 +128,7 @@ public class QueryActivity extends AppCompatActivity implements QueryContract.Vi
             }
         }
         mWrapperAdapter.removeFooters();
-        View footer = LayoutInflater.from(this).inflate(R.layout.layout_common_item_no_more, mRecyclerView, false);
+        View footer = LayoutInflater.from(this).inflate(R.layout.layout_common_vertical_recyclerview_item_no_more, mRecyclerView, false);
         footer.setTag("nomore");
         mWrapperAdapter.addFooterView(footer);
         if (footersCount > 0) {

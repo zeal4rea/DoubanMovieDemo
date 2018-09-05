@@ -23,6 +23,6 @@
     <color name="clickItemBackground">#CCC</color>
 
     <color name="tabIndicatorColor">#ffab00</color>
-    <color name="tabTextColor">#fff</color>
-    <color name="tabTextSelectedTextColor">#e0e0e0</color>
+    <color name="tabTextColor">#e0e0e0</color>
+    <color name="tabTextSelectedTextColor">#fff</color>
 </resources>

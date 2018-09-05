@@ -30,6 +30,7 @@ import java.util.List;
 
 public class SubjectsFragment extends BaseFragment implements SubjectsContract.View, SwipeRefreshLayout.OnRefreshListener {
 
+    private static final int loadThreshold = 5;
     private SubjectsContract.Presenter mPresenter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -37,7 +38,6 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
     private View mLayoutError;
     private SubjectsAdapter mInnerAdapter;
     private HeaderAndFooterAdapterWrapper mWrapperAdapter;
-    private static final int loadThreshold = 5;
     private boolean loadComplete = false;
     private SubjectsAdapter.SubjectItemListener mListener = new SubjectsAdapter.SubjectItemListener() {
         @Override
@@ -161,16 +161,8 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
     public void setNoMoreFooter() {
         loadComplete = true;
         int footersCount = mWrapperAdapter.getFootersCount();
-        if (footersCount > 0) {
-            View footerAtPosition = mWrapperAdapter.getFooterAtPosition(0);
-            Object tag = footerAtPosition.getTag();
-            if (tag != null && tag.toString().equalsIgnoreCase("nomore")) {
-                return;
-            }
-        }
         mWrapperAdapter.removeFooters();
-        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_common_item_no_more, mRecyclerView, false);
-        footer.setTag("nomore");
+        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_common_vertical_recyclerview_item_no_more, mRecyclerView, false);
         mWrapperAdapter.addFooterView(footer);
         if (footersCount > 0) {
             mWrapperAdapter.notifyItemChanged(mWrapperAdapter.getItemCount() - 1);
@@ -195,10 +187,13 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        int firstVisibleItemPosition, offset = 0;
+        int firstVisibleItemPosition = 0, offset = 0;
+        View firstVisibleItem = null;
         LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-        firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-        View firstVisibleItem = layoutManager.findViewByPosition(firstVisibleItemPosition);
+        if (layoutManager != null) {
+            firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+            firstVisibleItem = layoutManager.findViewByPosition(firstVisibleItemPosition);
+        }
         if (firstVisibleItem != null) {
             offset = firstVisibleItem.getTop();
         }
@@ -222,6 +217,9 @@ public class SubjectsFragment extends BaseFragment implements SubjectsContract.V
 
     @Override
     public void loading(boolean loading) {
+        if (mSwipeRefreshLayout.isRefreshing() == loading) {
+            return;
+        }
         mSwipeRefreshLayout.setRefreshing(loading);
     }
 

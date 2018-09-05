@@ -14,4 +14,6 @@ public class BaseContants {
 
     public final static int TYPE_GALLERY_SUBJECT = -1;
     public final static int TYPE_GALLERY_CELEBRITY = -2;
+
+    public final static String[] SORT_CELEBRITY_WORK = {"vote", "time"};
 }

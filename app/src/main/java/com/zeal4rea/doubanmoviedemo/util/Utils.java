@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
@@ -72,6 +73,10 @@ public class Utils {
             result.put(Integer.valueOf(temp[0]), temp[1]);
         }
         return result;
+    }
+
+    public static String[] getStringArray(@ArrayRes int id) {
+        return BaseApplication.getInstance().getResources().getStringArray(id);
     }
 
     public static CharSequence getString(@StringRes int id) {

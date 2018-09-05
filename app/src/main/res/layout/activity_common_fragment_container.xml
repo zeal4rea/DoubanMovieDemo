@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme.Toolbar">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/gallerytabs$toolbar"
+            android:id="@+id/common_fragment_container$toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways|snap" />
@@ -18,7 +18,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
-        android:id="@+id/gallerytabs$layout_content"
+        android:id="@+id/common_fragment_container$layout_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

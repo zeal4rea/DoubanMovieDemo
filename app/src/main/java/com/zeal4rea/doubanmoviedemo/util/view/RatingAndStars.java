@@ -44,23 +44,7 @@ public class RatingAndStars {
     }
 
     public static boolean fillStars(Context context, ViewGroup stars, int rating100) {
-        stars.removeAllViews();
-        if (rating100 > 0) {
-            int low = rating100 / 20;
-            int high = (int) (rating100 / 20 + 0.5);
-            for (int i = 0; i < low; i++) {
-                addStar(context, stars, 0, ViewGroup.LayoutParams.WRAP_CONTENT);
-            }
-            if (low != high) {
-                addStar(context, stars, 1, ViewGroup.LayoutParams.WRAP_CONTENT);
-            }
-            for (int i = 0; i < 5 - high; i++) {
-                addStar(context, stars, 2, ViewGroup.LayoutParams.WRAP_CONTENT);
-            }
-            return true;
-        } else {
-            return false;
-        }
+        return fillStars(context, stars, rating100, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     public static boolean fillStars(Context context, ViewGroup stars, int rating100, int sizeDp) {
@@ -80,6 +64,17 @@ public class RatingAndStars {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public static void fillEmptyStars(Context context, ViewGroup stars) {
+        fillEmptyStars(context, stars, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    public static void fillEmptyStars(Context context, ViewGroup stars, int sizeDp) {
+        stars.removeAllViews();
+        for (int i = 0; i < 5; i++) {
+            addStar(context, stars, 2, sizeDp);
         }
     }
 

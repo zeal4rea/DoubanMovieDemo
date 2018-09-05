@@ -62,7 +62,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         holder.votes.setText(comment.vote_count);
         holder.content.setText(comment.comment);
         Glide.with(context).load(comment.user.avatar).apply(new RequestOptions().transform(new GlideCircleTransform())).into(holder.icon);
-        RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(comment.rating.value, (int) comment.rating.max));
+        if (comment.rating != null) {
+            RatingAndStars.fillStars(context, holder.stars, RatingAndStars.correctRating(comment.rating.value, (int) comment.rating.max));
+        }
     }
 
     @Override

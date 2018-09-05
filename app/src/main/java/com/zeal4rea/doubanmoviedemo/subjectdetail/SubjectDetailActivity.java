@@ -34,6 +34,7 @@ import com.zeal4rea.doubanmoviedemo.gallerytabs.GalleryTabsActivity;
 import com.zeal4rea.doubanmoviedemo.image.ImageActivity;
 import com.zeal4rea.doubanmoviedemo.reviews.ReviewsActivity;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
+import com.zeal4rea.doubanmoviedemo.util.view.ExpandableTextView;
 import com.zeal4rea.doubanmoviedemo.util.view.HeaderAndFooterAdapterWrapper;
 import com.zeal4rea.doubanmoviedemo.util.view.RatingAndStars;
 
@@ -64,7 +65,7 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
     private TextView mTextViewCommentLabel;
     private TextView mTextViewReviewLabel;
     private TextView mTextViewMeta;
-    private TextView mTextViewSummary;
+    private ExpandableTextView mTextViewSummary;
     private TextView mTextViewNoSummary;
     private TextView mTextViewNoCelebrities;
     private TextView mTextViewNoPhotos;
@@ -108,23 +109,23 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         mLayoutReviews = findViewById(R.id.subjectdetail_content$layout_reviews);
         mLayoutError = findViewById(R.id.subjectdetail_content$layout_error);
 
-        mRecyclerViewCelebrities = mLayoutCelebrities.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
-        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$recycler_view_horizontal);
-        mRecyclerViewComments = mLayoutComments.findViewById(R.id.common_recyclerview$recycler_view_vertical);
-        mRecyclerViewReviews = mLayoutReviews.findViewById(R.id.common_recyclerview$recycler_view_vertical);
+        mRecyclerViewCelebrities = mLayoutCelebrities.findViewById(R.id.common_detail_recyclerview$recycler_view_horizontal);
+        mRecyclerViewPhotos = mLayoutPhotos.findViewById(R.id.common_detail_recyclerview$recycler_view_horizontal);
+        mRecyclerViewComments = mLayoutComments.findViewById(R.id.common_detail_recyclerview$recycler_view_vertical);
+        mRecyclerViewReviews = mLayoutReviews.findViewById(R.id.common_detail_recyclerview$recycler_view_vertical);
 
         mTextViewSummaryLabel = findViewById(R.id.subjectdetail_content$text_view_summary_label);
-        mTextViewCelebrityLabel = mLayoutCelebrities.findViewById(R.id.common_recyclerview$text_view_label);
-        mTextViewPhotoLabel = mLayoutPhotos.findViewById(R.id.common_recyclerview$text_view_label);
-        mTextViewCommentLabel = mLayoutComments.findViewById(R.id.common_recyclerview$text_view_label);
-        mTextViewReviewLabel = mLayoutReviews.findViewById(R.id.common_recyclerview$text_view_label);
+        mTextViewCelebrityLabel = mLayoutCelebrities.findViewById(R.id.common_detail_recyclerview$text_view_label);
+        mTextViewPhotoLabel = mLayoutPhotos.findViewById(R.id.common_detail_recyclerview$text_view_label);
+        mTextViewCommentLabel = mLayoutComments.findViewById(R.id.common_detail_recyclerview$text_view_label);
+        mTextViewReviewLabel = mLayoutReviews.findViewById(R.id.common_detail_recyclerview$text_view_label);
 
         mTextViewNoSummary = findViewById(R.id.subjectdetail_content$text_view_no_summary);
         mTextViewNoRating = findViewById(R.id.subjectdetail_content$text_view_no_rating);
-        mTextViewNoCelebrities = mLayoutCelebrities.findViewById(R.id.common_recyclerview$text_view_no_content);
-        mTextViewNoPhotos = mLayoutPhotos.findViewById(R.id.common_recyclerview$text_view_no_content);
-        mTextViewNoComments = mLayoutComments.findViewById(R.id.common_recyclerview$text_view_no_content);
-        mTextViewNoReviews = mLayoutReviews.findViewById(R.id.common_recyclerview$text_view_no_content);
+        mTextViewNoCelebrities = mLayoutCelebrities.findViewById(R.id.common_detail_recyclerview$text_view_no_content);
+        mTextViewNoPhotos = mLayoutPhotos.findViewById(R.id.common_detail_recyclerview$text_view_no_content);
+        mTextViewNoComments = mLayoutComments.findViewById(R.id.common_detail_recyclerview$text_view_no_content);
+        mTextViewNoReviews = mLayoutReviews.findViewById(R.id.common_detail_recyclerview$text_view_no_content);
 
         mPresenter.subscribe();
     }
@@ -218,7 +219,9 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
             }
         });
         HeaderAndFooterAdapterWrapper adapter = new HeaderAndFooterAdapterWrapper(innerAdapter);
-        View morePhotosFooter = LayoutInflater.from(SubjectDetailActivity.this).inflate(R.layout.layout_subjectdetail_content_photos_more, mRecyclerViewPhotos, false);
+        View morePhotosFooter = LayoutInflater.from(SubjectDetailActivity.this).inflate(R.layout.layout_common_horizontal_recyclerview_item_more, mRecyclerViewPhotos, false);
+        TextView textViewMorePhotos = morePhotosFooter.findViewById(R.id.common_horizontal_recyclerview$text_view_more);
+        textViewMorePhotos.setText(Utils.getString(R.string.all_photos));
         morePhotosFooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,14 +241,16 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         mRecyclerViewComments.setNestedScrollingEnabled(false);
         CommentsAdapter innerAdapter = new CommentsAdapter(SubjectDetailActivity.this, comments);
         HeaderAndFooterAdapterWrapper adapter = new HeaderAndFooterAdapterWrapper(innerAdapter);
-        View moreCommentsFooter = LayoutInflater.from(SubjectDetailActivity.this).inflate(R.layout.layout_subjectdetail_content_comments_more, mRecyclerViewComments, false);
-        moreCommentsFooter.setOnClickListener(new View.OnClickListener() {
+        View moreFooter = LayoutInflater.from(SubjectDetailActivity.this).inflate(R.layout.layout_common_vertical_recyclerview_item_more, mRecyclerViewComments, false);
+        TextView textViewMoreComments = moreFooter.findViewById(R.id.common_vertical_recyclerview$text_view_more);
+        textViewMoreComments.setText(Utils.getString(R.string.all_comments));
+        moreFooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CommentsActivity.newIntent(SubjectDetailActivity.this, mSubject.id, mSubject.title);
             }
         });
-        adapter.addFooterView(moreCommentsFooter);
+        adapter.addFooterView(moreFooter);
         mRecyclerViewComments.setAdapter(adapter);
         mRecyclerViewComments.setVisibility(View.VISIBLE);
         mLayoutComments.setVisibility(View.VISIBLE);
@@ -258,14 +263,16 @@ public class SubjectDetailActivity extends AppCompatActivity implements SubjectD
         mRecyclerViewReviews.setNestedScrollingEnabled(false);
         ReviewsAdapter innerAdapter = new ReviewsAdapter(SubjectDetailActivity.this, reviews);
         HeaderAndFooterAdapterWrapper adapter = new HeaderAndFooterAdapterWrapper(innerAdapter);
-        View moreReviewsFooter = LayoutInflater.from(SubjectDetailActivity.this).inflate(R.layout.layout_subjectdetail_content_reviews_more, mRecyclerViewReviews, false);
-        moreReviewsFooter.setOnClickListener(new View.OnClickListener() {
+        View moreFooter = LayoutInflater.from(SubjectDetailActivity.this).inflate(R.layout.layout_common_vertical_recyclerview_item_more, mRecyclerViewReviews, false);
+        TextView textViewMoreReviews = moreFooter.findViewById(R.id.common_vertical_recyclerview$text_view_more);
+        textViewMoreReviews.setText(Utils.getString(R.string.all_reviews));
+        moreFooter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ReviewsActivity.newIntent(SubjectDetailActivity.this, mSubjectId, mSubject.title);
             }
         });
-        adapter.addFooterView(moreReviewsFooter);
+        adapter.addFooterView(moreFooter);
         mRecyclerViewReviews.setAdapter(adapter);
         mRecyclerViewReviews.setVisibility(View.VISIBLE);
         mLayoutReviews.setVisibility(View.VISIBLE);

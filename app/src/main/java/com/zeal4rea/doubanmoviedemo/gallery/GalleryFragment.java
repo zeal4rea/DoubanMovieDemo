@@ -50,12 +50,6 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
 
         mRefreshLayout.setColorSchemeResources(R.color.googleBlue, R.color.googleGreen, R.color.googleRed, R.color.googleYellow);
         mRefreshLayout.setOnRefreshListener(this);
-        mLayoutErrorClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.load(false);
-            }
-        });
         mPresenter.subscribe();
     }
 
@@ -118,33 +112,29 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     }
 
     private void setLoadMoreFooter() {
-        if (mWrapperAdapter.getFootersCount() == 0) {
-            View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_gallery_item_more, mRecyclerView, false);
-            TextView textViewMore = footer.findViewById(R.id.gallery$text_view_more);
-            textViewMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getActivity(), "加载更多", Toast.LENGTH_SHORT).show();
-                    mPresenter.load(true);
-                }
-            });
-            mWrapperAdapter.addFooterView(footer);
+        int footersCount = mWrapperAdapter.getFootersCount();
+        mWrapperAdapter.removeFooters();
+        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_gallery_item_more, mRecyclerView, false);
+        TextView textViewMore = footer.findViewById(R.id.gallery$text_view_more);
+        textViewMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "加载更多", Toast.LENGTH_SHORT).show();
+                mPresenter.load(true);
+            }
+        });
+        mWrapperAdapter.addFooterView(footer);
+        if (footersCount > 0) {
+            mWrapperAdapter.notifyItemChanged(mWrapperAdapter.getItemCount() - 1);
+        } else {
             mWrapperAdapter.notifyItemRangeInserted(mWrapperAdapter.getHeadersCount() + mWrapperAdapter.getRealItemCount(), 1);
         }
     }
 
     private void setNoMoreFooter() {
         int footersCount = mWrapperAdapter.getFootersCount();
-        if (footersCount > 0) {
-            View footerAtPosition = mWrapperAdapter.getFooterAtPosition(0);
-            Object tag = footerAtPosition.getTag();
-            if (tag != null && tag.toString().equalsIgnoreCase("nomore")) {
-                return;
-            }
-        }
         mWrapperAdapter.removeFooters();
-        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_common_item_no_more, mRecyclerView, false);
-        footer.setTag("nomore");
+        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.layout_common_vertical_recyclerview_item_no_more, mRecyclerView, false);
         mWrapperAdapter.addFooterView(footer);
         if (footersCount > 0) {
             mWrapperAdapter.notifyItemChanged(mWrapperAdapter.getItemCount() - 1);
@@ -156,11 +146,11 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_gallery, container, false);
-        mRefreshLayout = view.findViewById(R.id.gallery$refresh_layout);
-        mRecyclerView = view.findViewById(R.id.gallery$recycler_view);
-        mLayoutEmpty = view.findViewById(R.id.gallery$layout_empty);
-        mLayoutError = view.findViewById(R.id.gallery$layout_error);
+        View view = inflater.inflate(R.layout.layout_common_fragment_with_recyclerview, container, false);
+        mRefreshLayout = view.findViewById(R.id.common_fragment_with_recyclerview$refresh_layout);
+        mRecyclerView = view.findViewById(R.id.common_fragment_with_recyclerview$recycler_view);
+        mLayoutEmpty = view.findViewById(R.id.common_fragment_with_recyclerview$layout_empty);
+        mLayoutError = view.findViewById(R.id.common_fragment_with_recyclerview$layout_error);
         mLayoutErrorClick = mLayoutError.findViewById(R.id.error$layout_click);
         mLayoutErrorImageView = mLayoutError.findViewById(R.id.error$image_view);
         return view;
@@ -191,6 +181,9 @@ public class GalleryFragment extends BaseFragment implements GalleryContract.Vie
 
     @Override
     public void loading(boolean loading) {
+        if (mRefreshLayout.isRefreshing() == loading) {
+            return;
+        }
         mRefreshLayout.setRefreshing(loading);
     }
 

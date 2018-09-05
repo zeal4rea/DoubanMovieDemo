@@ -5,25 +5,25 @@
     android:background="@color/viewBackground">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/gallery$refresh_layout"
+        android:id="@+id/common_fragment_with_recyclerview$refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/gallery$recycler_view"
+            android:id="@+id/common_fragment_with_recyclerview$recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include
-        android:id="@+id/gallery$layout_empty"
+        android:id="@+id/common_fragment_with_recyclerview$layout_empty"
         layout="@layout/layout_empty"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <include
-        android:id="@+id/gallery$layout_error"
+        android:id="@+id/common_fragment_with_recyclerview$layout_error"
         layout="@layout/layout_error"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </FrameLayout>

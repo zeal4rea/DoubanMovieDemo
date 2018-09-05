@@ -22,22 +22,22 @@
 
         <include
             android:id="@+id/subjectdetail_content$layout_celebrities"
-            layout="@layout/layout_common_recyclerview"
+            layout="@layout/layout_common_detail_recyclerview"
             android:visibility="gone" />
 
         <include
             android:id="@+id/subjectdetail_content$layout_photos"
-            layout="@layout/layout_common_recyclerview"
+            layout="@layout/layout_common_detail_recyclerview"
             android:visibility="gone" />
 
         <include
             android:id="@+id/subjectdetail_content$layout_comments"
-            layout="@layout/layout_common_recyclerview"
+            layout="@layout/layout_common_detail_recyclerview"
             android:visibility="gone" />
 
         <include
             android:id="@+id/subjectdetail_content$layout_reviews"
-            layout="@layout/layout_common_recyclerview"
+            layout="@layout/layout_common_detail_recyclerview"
             android:visibility="gone" />
 
         <include

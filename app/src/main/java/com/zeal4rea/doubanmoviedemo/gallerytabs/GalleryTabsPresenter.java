@@ -3,7 +3,6 @@ package com.zeal4rea.doubanmoviedemo.gallerytabs;
 import android.util.SparseArray;
 
 import com.zeal4rea.doubanmoviedemo.R;
-import com.zeal4rea.doubanmoviedemo.base.BaseApplication;
 import com.zeal4rea.doubanmoviedemo.base.BaseContants;
 import com.zeal4rea.doubanmoviedemo.util.Utils;
 
@@ -29,7 +28,7 @@ public class GalleryTabsPresenter implements GalleryTabsContract.Presenter {
                     id = R.array.celebrity_photo_list_order;
                     break;
             }
-            SparseArray<String> titles = Utils.getSparseArraySplitBy(BaseApplication.getContext().getResources().getStringArray(id), "=");;
+            SparseArray<String> titles = Utils.getSparseArraySplitBy(Utils.getStringArray(id), "=");
             mTabsView.addFragments(titles, mType);
             mTabsView.initComplete();
         } catch (Exception e) {
